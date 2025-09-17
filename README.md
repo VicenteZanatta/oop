@@ -111,7 +111,3 @@ No extra spaces or blank lines at the end of files.
 - Reports must strictly follow the specification.
 
 ---
-
-## Author
-- **Name:** *Your Name Here*  
-- **Enrollment Number:** *Your Student ID Here*
