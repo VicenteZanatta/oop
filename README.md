@@ -2,7 +2,7 @@
 
 ## Problem Description
 
-Professor Felisberto is a very busy man with several appointments scheduled in his agenda.  
+Professor John Doe is a very busy man with several appointments scheduled in his agenda.  
 To manage these efficiently, he decided to hire programmers to develop a **commitment filtering system**.  
 Your task is to implement this system.
 
