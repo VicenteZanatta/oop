@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 
 # Arquivos fonte
-SRC = src/main.c src/commitment.c src/class.c
+SRC = src/main.c src/commitment.c src/class.c src/file_input_output.c
 
 # Objetos gerados
 OBJ = $(SRC:.c=.o)
