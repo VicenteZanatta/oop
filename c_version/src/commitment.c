@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../inc/commitment.h"
 
 typedef struct commitment{
@@ -12,32 +12,40 @@ typedef struct commitment{
     int duration; // in minutes
     int priority;
     void* specific_Data; //pointer for class contaning specific data struct for each type of commitment
-
-    
+ 
 }Commitment;
 
-void* initCommitment()
-{
-    Commitment* c = (Commitment*)malloc(sizeof(Commitment));
-    return c;
+Commitment* initCommitment() {
+    Commitment* com = malloc(sizeof(Commitment));
+    return com;
 }
 
-void registerCommitment(Commitment* c, char par_type,int par_id, char par_date, char par_time, int par_duration, int par_priority)
-{
-    c->type - par_type;
-    c->id = par_id;
-    strlcpy(c->date, 10, par_date);
-    strlcpy(c->time, 5, par_time);
-    c->duration = par_duration;
-    c->priority = par_priority;
+void registerCommitment(Commitment* com, char type, int id, char *date, char *time, int duration, int priority) {
+    if (com == NULL) return;
 
+    com->type = type;
+    com->id = id;
+
+    strncpy(com->date, date, sizeof(com->date) - 1);
+    com->date[sizeof(com->date) - 1] = '\0';
+
+    strncpy(com->time, time, sizeof(com->time) - 1);
+    com->time[sizeof(com->time) - 1] = '\0';
+
+    com->duration = duration;
+    com->priority = priority;
 }
 
-void printCommitment(Commitment* c)
-{
-    printf("\n%c%i", c->type, c->id);
-    printf("\n%s | %s", c->date, c->time);
-    print("\n%i", c->priority);
+void printCommitment(Commitment* com) {
+    if (com == NULL) return;
+
+    printf("commitment:\n");
+    printf("  Type: %c\n", com->type);
+    printf("  ID: %d\n", com->id);
+    printf("  Date: %s\n", com->date);
+    printf("  Time: %s\n", com->time);
+    printf("  Duration: %d\n", com->duration);
+    printf("  Priority: %d\n", com->priority);
 }
 
 
