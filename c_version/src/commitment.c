@@ -5,15 +5,27 @@
 
 typedef struct commitment{
 
-    char type;
-    int id;
-    char date[10]; //format dd/mm/yyyy
-    char time[5]; //format hh:mm
-    int duration; // in minutes
-    int priority;
-    void* specific_Data; //pointer for class contaning specific data struct for each type of commitment
+    char IDchar[8];         // id in char type for print "A000000"
+    char type;              // first caracter of IDchar
+    int id;                 // 6 digits from IDchar 
+    char date[11];          // format dd/mm/yyyy
+    char time[6];           // format hh:mm
+    int duration;           // in minutes
+    int priority;       
+    void* specific_Data;    // pointer for class contaning specific data struct for each type of commitment
  
 }Commitment;
+
+/*
+    char IDchar[8];         
+    char type;              
+    int id = 0;                  
+    char date[10];          
+    char time[5];           
+    int duration = 0;           
+    int priority = 0;
+
+*/
 
 Commitment* initCommitment() {
     Commitment* com = malloc(sizeof(Commitment));

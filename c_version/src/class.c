@@ -7,7 +7,7 @@
 typedef struct class
 {
     Commitment* com;
-    char name[50];
+    char name[51];
     char* level;
 } Class;
 
