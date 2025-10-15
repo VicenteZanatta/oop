@@ -1,12 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h> //nedd to use -lm for compile pow function 
+#include <math.h> //nedd to use -lm for compile pow function
+#include "../inc/class.h" 
+#include "../inc/commitment.h"
+
 
 #define LINE_LENGHT 128 
 
-void identifyClass(char* ID, FILE* file_pointer);
+void readClassData(char* line_buffer, FILE* file_pointer);
+void identifyCommType(char* ID, FILE* file_pointer);
 int convertToInt(char* charID);
+char* getDate(char* line_buffer);
 
 int readInputFile(char* file_name){
 
@@ -22,9 +27,7 @@ int readInputFile(char* file_name){
     {
         while ( line_buffer[0] != '\n')
         {
-            
-            regitracomprimisso
-            identifyClass(line_buffer, input_file); 
+            identifyCommType(line_buffer, input_file); 
         }  
     }
 
@@ -32,39 +35,64 @@ int readInputFile(char* file_name){
     return 0;
 }
 
-int convertToInt(char* charID)
+int convertToInt(char* str)             
 {
-    int intID = 0;
-    int digit = 0; 
-    int decimalPlace = 0; 
+    int result = 0;
 
-    for (int i = 1; i <= 6; i++){
-
-        digit = charID[i] - '0';  
-        decimalPlace = pow(10, 6 - i);    
-        intID += digit * decimalPlace;        
+    while (*str) {
+        if (isdigit((unsigned char)*str))           // check if is digit, in order to add to result
+            result = result * 10 + (*str - '0');
+        str++;
     }
 
-    return intID;
+    return result;
 }
 
-void readAulaData(FILE * file_pointer, Aula  * pointer)
+void readClassData(char* line_buffer, FILE * file_pointer)
 {
+    //line_buffer has ID string 
 
+    char IDchar[8];         
+    char type;              
+    int id = 0;                  
+    char date[11];          
+    char time[6];           
+    int duration = 0;
+    char name[51];
+    char* level;           
+    int priority = 0;
+
+    strlcpy(IDchar, line_buffer, sizeof(IDchar));
+    type = IDchar[0];
+    id = convertToInt(IDchar);
+
+    fgets(line_buffer, sizeof(line_buffer), file_pointer); 
+    strlcpy(date, line_buffer, sizeof(date));               // by usign sizeof(date), string in line_buffer will be truncated, only passing first 10 characters and '\n'
+    strlcpy(time, line_buffer+11, sizeof(time));            // time string source starts after date string (11 characters long)
+
+    fgets(line_buffer, sizeof(line_buffer), file_pointer);
+    duration = convertToInt(line_buffer);
+
+    fgets(line_buffer, sizeof(line_buffer), file_pointer);
+    strlcpy(name, line_buffer, sizeof(name));
+
+    fgets(line_buffer, sizeof(line_buffer), file_pointer);
+    strlcpy(level, line_buffer, sizeof(level));
+
+    fgets(line_buffer, sizeof(line_buffer), file_pointer);
+    priority = convertToInt(priority);    
+    
 }
 
-void identifyClass(char* ID, FILE* file_pointer){
+void identifyCommType(char* ID, FILE* file_pointer){
 
     switch(ID[0]){
         case 'A':
-           char IDvar = ID[0];
-           int converToInt(ID);
-           Aula * aula = CreateAula();
-           readAulaData(file_pointer, aula);       
-
+           readClassData(ID, file_pointer);       
             
     }
 }
+
 
 
 

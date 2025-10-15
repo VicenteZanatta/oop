@@ -3,6 +3,8 @@
 
 #include "../inc/commitment.h"
 
+typedef struct class Class;
 
+Class* initClass();
 
 #endif

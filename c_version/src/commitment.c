@@ -20,8 +20,12 @@ Commitment* initCommitment() {
     return com;
 }
 
-void registerCommitment(Commitment* com, char type, int id, char *date, char *time, int duration, int priority) {
-    if (com == NULL) return;
+Commitment* registerCommitment(char type, int id, char *date, char *time, int duration, int priority) {
+    
+    Commitment* com = initCommitment();
+    
+    if (com == NULL) 
+        return -1;
 
     com->type = type;
     com->id = id;
@@ -34,18 +38,21 @@ void registerCommitment(Commitment* com, char type, int id, char *date, char *ti
 
     com->duration = duration;
     com->priority = priority;
+
+    return com;
 }
 
 void printCommitment(Commitment* com) {
-    if (com == NULL) return;
+    if (com == NULL) 
+        return;
 
-    printf("commitment:\n");
-    printf("  Type: %c\n", com->type);
-    printf("  ID: %d\n", com->id);
-    printf("  Date: %s\n", com->date);
-    printf("  Time: %s\n", com->time);
-    printf("  Duration: %d\n", com->duration);
-    printf("  Priority: %d\n", com->priority);
+    printf("\ncommitment:");
+    printf("\nType: %c", com->type);
+    printf("\nID: %d", com->id);
+    printf("\nDate: %s", com->date);
+    printf("\nTime: %s", com->time);
+    printf("\nDuration: %d", com->duration);
+    printf("\nPriority: %d", com->priority);
 }
 
 

@@ -14,9 +14,6 @@ typedef struct class
 Class* initClass(){
 
     Class* cla = malloc(sizeof(Class));
-    Commitment* com = initCommitment();
-
-    cla->com = com;
 
     return cla;
 }
