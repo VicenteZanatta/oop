@@ -32,22 +32,18 @@ Commitment* initCommitment() {
     return com;
 }
 
-Commitment* registerCommitment(char type, int id, char *date, char *time, int duration, int priority) {
+Commitment* registerCommitment(char* IDchar, char type, int id, char *date, char *time, int duration, int priority) {
     
     Commitment* com = initCommitment();
     
     if (com == NULL) 
-        return -1;
+        return;
 
+    snprintf(com->IDchar, sizeof(com->IDchar), "%s", IDchar );
     com->type = type;
     com->id = id;
-
-    strncpy(com->date, date, sizeof(com->date) - 1);
-    com->date[sizeof(com->date) - 1] = '\0';
-
-    strncpy(com->time, time, sizeof(com->time) - 1);
-    com->time[sizeof(com->time) - 1] = '\0';
-
+    snprintf(com->date, sizeof(com->date), "%s", date );
+    snprintf(com->time, sizeof(com->time), "%s", time );
     com->duration = duration;
     com->priority = priority;
 
@@ -59,8 +55,7 @@ void printCommitment(Commitment* com) {
         return;
 
     printf("\ncommitment:");
-    printf("\nType: %c", com->type);
-    printf("\nID: %d", com->id);
+    printf("\nID: %s", com->IDchar);
     printf("\nDate: %s", com->date);
     printf("\nTime: %s", com->time);
     printf("\nDuration: %d", com->duration);

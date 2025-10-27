@@ -6,7 +6,7 @@
 typedef struct commitment Commitment;
 
 Commitment* initCommitment();
-void registerCommitment(Commitment* com, char type, int id, char *date, char *time, int duration, int priority);
+Commitment* registerCommitment(char* IDchar, char type, int id, char *date, char *time, int duration, int priority);
 void printCommitment(Commitment* com);
 
 #endif

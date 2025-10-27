@@ -1,0 +1,48 @@
+A000001
+05/04/2009 07:00
+120
+Processamento de Dados I
+Graduação
+1
+
+A000002
+07/04/2009 07:00
+120
+Processamento de Dados I
+Graduação
+1
+
+A000003
+03/04/2009 14:00
+120
+Processamento de Dados II
+Graduação
+1
+
+A000004
+04/04/2009 11:00
+120
+Linguagens de Programação I
+Graduação
+2
+
+A000005
+05/04/2009 13:00
+120
+Processamento de Dados II
+Graduação
+2
+
+A000006
+06/04/2009 15:00
+180
+Engenharia Web
+Mestrado
+5
+
+A000007
+07/04/2009 10:00
+180
+Linguagens de Programação I
+Graduação
+3

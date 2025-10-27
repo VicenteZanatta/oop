@@ -4,15 +4,15 @@
 #include "../inc/commitment.h"
 #include "../inc/file_input_output.h"
 
-#define SCHEDULER_INPUT_FILE "agenda.txt" 
+#define SCHEDULER_INPUT_FILE "agenda_teste.txt" 
 
 
 int main(){
-
-    Commitment* com; //pointer for commitment struct used for creating elements for the list
     
-    if (readInputFile(SCHEDULER_INPUT_FILE) != 0 )  //functions retunr 0 if exec if sucess
-        return 0;               //if return diff than 0 stop program exec to avoid problems
+    printf("\n A");
+    if (readInputFile(SCHEDULER_INPUT_FILE) != 0 )      //functions retunr 0 if exec if sucess
+        return 0;                                       //if return diff than 0 stop program exec to avoid problems
+    printf("\n b");
     
     
     /*com = initCommitment();

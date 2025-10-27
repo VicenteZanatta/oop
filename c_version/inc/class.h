@@ -7,4 +7,6 @@ typedef struct class Class;
 
 Class* initClass();
 
+Class* registerClass(char *IdChar, char type, int id, char *date, char *time, int duration, int priority, char* name, char* level);
+
 #endif

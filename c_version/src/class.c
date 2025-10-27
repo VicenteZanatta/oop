@@ -18,4 +18,10 @@ Class* initClass(){
     return cla;
 }
 
+Class* registerClass(char *IdChar, char type, int id, char *date, char *time, int duration, int priority, char* name, char* level)
+{
+    Commitment* com = (type, id, date, time, duration, priority);
+
+
+}
 
