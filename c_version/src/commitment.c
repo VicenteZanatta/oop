@@ -5,9 +5,9 @@
 
 typedef struct commitment{
 
-    char IDchar[8];         // id in char type for print "A000000"
-    char type;              // first caracter of IDchar
-    int id;                 // 6 digits from IDchar 
+    char idString[8];       // id in string type for print "A000000"
+    char type;              // first caracter of idString
+    int id;                 // 6 digits from idString 
     char date[11];          // format dd/mm/yyyy
     char time[6];           // format hh:mm
     int duration;           // in minutes
@@ -16,30 +16,19 @@ typedef struct commitment{
  
 }Commitment;
 
-/*
-    char IDchar[8];         
-    char type;              
-    int id = 0;                  
-    char date[10];          
-    char time[5];           
-    int duration = 0;           
-    int priority = 0;
-
-*/
-
 Commitment* initCommitment() {
     Commitment* com = malloc(sizeof(Commitment));
     return com;
 }
 
-Commitment* registerCommitment(char* IDchar, char type, int id, char *date, char *time, int duration, int priority) {
+Commitment* registerCommitment(char* idString, char type, int id, char *date, char *time, int duration, int priority) {
     
     Commitment* com = initCommitment();
     
     if (com == NULL) 
         return;
 
-    snprintf(com->IDchar, sizeof(com->IDchar), "%s", IDchar );
+    snprintf(com->idString, sizeof(com->idString), "%s", idString );
     com->type = type;
     com->id = id;
     snprintf(com->date, sizeof(com->date), "%s", date );
@@ -51,11 +40,11 @@ Commitment* registerCommitment(char* IDchar, char type, int id, char *date, char
 }
 
 void printCommitment(Commitment* com) {
-    if (com == NULL) 
-        return;
+    
+    if (com == NULL)
+        printf("ERROR WHILE PRINTING [%s] COMMITIMENT", com->idString); 
 
-    printf("\ncommitment:");
-    printf("\nID: %s", com->IDchar);
+    printf("\nID: %s", com->idString);
     printf("\nDate: %s", com->date);
     printf("\nTime: %s", com->time);
     printf("\nDuration: %d", com->duration);

@@ -1,7 +1,14 @@
 #ifndef FILE_INPUT_OUTPUT_H
 #define FILE_INPUT_OUTPUT_H
 
-int readInputFile(char *file);
+#include "../inc/linked_list.h"
 
+int readInputFile(char* file, List* commitmentList);
+
+void processCommitment(char* ID, FILE* file_pointer);
+
+int convertToInt(char* charID);
+
+void lineCleaner(char* line);
 
 #endif

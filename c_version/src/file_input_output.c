@@ -5,28 +5,21 @@
 #include <math.h> //nedd to use -lm for link pow function
 #include "../inc/class.h" 
 #include "../inc/commitment.h"
+#include "../inc/linked_list.h"
 
 
 #define LINE_LENGHT 128
-/*#define ID_STRING_LENGTH 7
-#define DATE_STRING_LENGTH 11
-#define TIME_STRING_LENGTH 6
-#define STUDENT_NAME_STRING_LENGTH 50
-#define EVENT_NAME_STRING_LENGTH 50
-#define PLACE_STRING_LENGTH 50
-#define MOTIVE_STRING_LENGTH 50 */ 
 
-
-void readClassData(char* line_buffer, FILE* file_pointer);
-void identifyCommType(char* ID, FILE* file_pointer);
+int readInputFile(char* file_name, List* commitmentList);                    // function used to read input File and receive pointer for the Linked List used to manage commitments
+Class* readClassData(char* line_buffer, FILE* file_pointer);
+void processCommitment(char* ID, FILE* file_pointer, List* commitmentList);  // function used do identify type of commitment, call data reading for different types and add created node to Linked List 
 int convertToInt(char* charID);
 void lineCleaner(char* line);
 
-int readInputFile(char* file_name){
 
-    int i = 0;
-    int j = 0;
-    
+
+int readInputFile(char* file_name, List* commitmentList){
+
     FILE *input_file = fopen(file_name, "r"); // creat pointer for file reading
     char line_buffer[LINE_LENGHT];
 
@@ -37,15 +30,25 @@ int readInputFile(char* file_name){
 
     while (fgets(line_buffer, sizeof(line_buffer), input_file) != NULL)
     {
-        if(line_buffer[0] != '\n'){
-            identifyCommType(line_buffer, input_file);
-            j++;
-            }
-        i++;
+        if(line_buffer[0] != '\n')
+            processCommitments(line_buffer, input_file, commitmentList);
     }
 
     fclose(input_file);
     return 0;
+}
+
+void processCommitments(char* ID, FILE* file_pointer, List* commitmentList){
+
+    switch(ID[0]){
+        case 'A':
+            Class* classPointer = readClassData(ID, file_pointer);
+            addNode(classPointer, commitmentList);
+            break;
+        default:
+            printf("\nTYPE [%c] NOT IDENTIFIED\n", ID[0]);
+            break;            
+    }
 }
 
 int convertToInt(char* str)             
@@ -81,10 +84,8 @@ Class* readClassData(char* line_buffer, FILE * file_pointer)
     
     fgets(line_buffer, LINE_LENGHT, file_pointer);
     lineCleaner(line_buffer); 
-    snprintf(date, sizeof(date), "%.10s", line_buffer );               
+    snprintf(date, sizeof(date), "%.10s", line_buffer );            
     snprintf(time, sizeof(time), "%.5s", line_buffer+11);             
-    //printf("\n%s", date);
-    //printf("\n%s", time);
 
     fgets(line_buffer, LINE_LENGHT, file_pointer);
     lineCleaner(line_buffer);
@@ -101,6 +102,10 @@ Class* readClassData(char* line_buffer, FILE * file_pointer)
     fgets(line_buffer, LINE_LENGHT, file_pointer);
     lineCleaner(line_buffer);
     priority = convertToInt(line_buffer);
+
+    Class* classPointer = registerClass(IDchar, type, id, date, time, duration, priority, name, level);
+
+    return classPointer;
  
 }
 
@@ -115,18 +120,7 @@ void lineCleaner( char* line){              // removes '\n' from line, avoiding 
 }
 
 
-void identifyCommType(char* ID, FILE* file_pointer){
 
-
-    switch(ID[0]){
-        case 'A':
-            Class* classPointer = readClassData(ID, file_pointer);
-            break;
-        default:
-            printf("\nTYPE [%c] NOT IDENTIFIED\n", ID[0]);
-            break;            
-    }
-}
 
 
 
