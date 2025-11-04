@@ -111,7 +111,7 @@ Lesson* readLessonData(char* line_buffer, FILE * file_pointer)
     lineCleaner(line_buffer);
     priority = convertToInt(line_buffer);
 
-    Lesson* LessonPointer = registerLesson(idString, type, id, date, time, duration, priority, name, level);
+    Lesson* LessonPointer = creatLesson(idString, type, id, date, time, duration, priority, name, level);
 
     return LessonPointer;
  
@@ -146,8 +146,9 @@ Orientation* readOrientation(char* line_buffer, FILE * file_pointer)
     duration = convertToInt(line_buffer);
 
     fgets(line_buffer, LINE_LENGHT, file_pointer); //checks if commitment is postponable
-    if(line_buffer == "true")
-        postponable = true;
+    lineCleaner(line_buffer);
+    if(!(strcmp(line_buffer, "true"))) // strcmp function return 0 if strings are equals
+        postponable = true; 
 
     fgets(line_buffer, LINE_LENGHT, file_pointer);
     lineCleaner(line_buffer);
@@ -161,7 +162,7 @@ Orientation* readOrientation(char* line_buffer, FILE * file_pointer)
     lineCleaner(line_buffer);
     priority = convertToInt(line_buffer);
 
-    Orientation* ort = registerOrientation(idString, type, id, date, time, duration, 
+    Orientation* ort = creatOrientation(idString, type, id, date, time, duration, 
                                             priority, postponable ,studentName, level);
 
     return ort;

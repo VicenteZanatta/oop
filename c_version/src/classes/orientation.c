@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../inc/ppCommitment.h"
+#include "../inc/commitment.h"
+#include "../inc/pp_commitment.h"
 #include "../inc/constants.h"
 
 
@@ -22,7 +23,7 @@ Orientation* creatOrientation(char* arg_idString, char arg_type, int arg_id,
     Orientation* ort = malloc(sizeof(Orientation));
 
     ppCommitment* ppCom = creatPPCommitment(arg_idString, arg_type, arg_id, arg_date, 
-                                         arg_time, arg_duration, arg_priority, ORIENTATION_MULTIPLIER, arg_postponeable);
+                                         arg_time, arg_duration, arg_priority, ORIENTATION_FACTOR, arg_postponeable);
 
     ort->ppCom = ppCom;
     
@@ -32,11 +33,11 @@ Orientation* creatOrientation(char* arg_idString, char arg_type, int arg_id,
     return ort;                                
 }
 
-void destroyOrientation(ppCommitment* ppCom){
+void destroyOrientation(Commitment* com){
 
-    Orientation* ort = (Orientation*)ppCom;
+    Orientation* ort = (Orientation*)com;
 
-    destroyPPCommmitment(ort->ppCom);
+    destroyPPCommitment(ort->ppCom);
 
     free(ort);   
 

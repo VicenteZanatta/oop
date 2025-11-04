@@ -19,20 +19,22 @@ ppCommitment* creatPPCommitment(char* arg_idString, char arg_type, int arg_id,
 
     ppCommitment* ppCom = malloc(sizeof(ppCommitment));
 
-    ppCom->com = creatCommitment(arg_idString, arg_type, arg_date, arg_duration, 
-                                    arg_time, arg_duration, arg_priority, arg_priorityFactor);
+    ppCom->com = creatCommitment(arg_idString, arg_type, arg_id, arg_date, arg_time, 
+                                    arg_duration, arg_priority, arg_priorityFactor);
     
     ppCom->postponable = arg_postponeable;
 
     if(!(ppCom->postponable))         
-        increaseMultiplier(ppCom);
+        increaseMultiplier(ppCom->com);
 
     return ppCom;
                                        
 }
 
-void destroyPPCommmitment(ppCommitment* ppCom){
+void destroyPPCommitment(Commitment* Com){
 
+    ppCommitment* ppCom = (ppCommitment*)ppCom;
+    
     destroyCommitment(ppCom->com);
 
     free(ppCom);

@@ -1,6 +1,8 @@
 #ifndef PPCOMMITMENT_H
 #define PPCOMMITMENT_H
 
+#include "../inc/commitment.h"
+
 typedef struct postponableCommitment ppCommitment;
 
 ppCommitment* creatPPCommitment(char* arg_idString, char arg_type, int arg_id, 
@@ -8,6 +10,6 @@ ppCommitment* creatPPCommitment(char* arg_idString, char arg_type, int arg_id,
                                 int arg_priority, int arg_priorityFactor, bool arg_postponeable);
 
 
-void destroyPPCommmitment(ppCommitment* ppCom); //destruc method
+void destroyPPCommitment(Commitment* com); //destruc method
 
 #endif

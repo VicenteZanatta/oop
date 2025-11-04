@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "class.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdbool.h": "c",
+        "ppcommitment.h": "c"
     }
 }

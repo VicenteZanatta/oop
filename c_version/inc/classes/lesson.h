@@ -9,6 +9,6 @@ Lesson* creatLesson(char *IdChar, char type, int id,
                         char *date, char *time, int duration,
                         int priority, char* name, char* level);
 
-void printLesson(Lesson* LESSON);
+void printLesson(Commitment* com);
 
 #endif

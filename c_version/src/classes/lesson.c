@@ -13,26 +13,28 @@ typedef struct lession
 } Lesson;
 
 
-Lesson* creatLesson(char* arg_idString, char arg_type, int arg_id, char* arg_date, char *arg_time, 
-                                int arg_duration, int arg_priority, char* arg_name, char* arg_level)
-{
-    Lesson* Lesson = malloc(sizeof(Lesson));
+Lesson* creatLesson(char* arg_idString, char arg_type, int arg_id, char* arg_date, 
+                    char *arg_time, int arg_duration, int arg_priority, 
+                    char* arg_name, char* arg_level){
+                        
+    Lesson* lesson = malloc(sizeof(Lesson));
 
-    if(Lesson == NULL){
+    if(lesson == NULL){
         printf("ERROR WHILE CREATING LESSION [%s]", arg_idString);
         return NULL;
     }
     
-    Commitment* comm = creatCommitment(arg_idString, arg_type, arg_id, arg_date, arg_time, arg_duration, arg_priority, LESSON_MULTIPLIER);
+    Commitment* comm = creatCommitment(arg_idString, arg_type, arg_id, arg_date, 
+                                        arg_time, arg_duration, arg_priority, EVENT_FACTOR);
     if(comm == NULL)
         return NULL;
 
-    Lesson->commData = comm;  
+    lesson->commData = comm;  
     
-    snprintf(Lesson->name, NAME_STRING_LENGHT, arg_name);
-    snprintf(Lesson->level, NAME_STRING_LENGHT, arg_level);    // level doesn't have lenght specified, and can only assume 3 possible options
+    snprintf(lesson->name, NAME_STRING_LENGHT, arg_name);
+    snprintf(lesson->level, NAME_STRING_LENGHT, arg_level);    // level doesn't have lenght specified, and can only assume 3 possible options
 
-    return Lesson;
+    return lesson;
 
 }
 

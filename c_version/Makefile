@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Iinclude -ggdb3 -std=c11 -O0
 LDFLAGS = -lm
 
 # Arquivos fonte
-SRC = src/main.c src/commitment.c src/class.c src/file_input_output.c src/linked_list.c src/orientation.c
+SRC = src/main.c src/commitment.c src/lesson.c src/file_input_output.c src/linked_list.c src/orientation.c src/ppCommitment.c src/dept_meeting.c
 
 # Objetos gerados
 OBJ = $(SRC:.c=.o)

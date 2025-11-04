@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../inc/commitment.h"
-#include "../inc/class.h"
+#include "../inc/lesson.h"
 
 typedef struct node{
 
@@ -78,7 +78,6 @@ void printList(List* list){
     Node* node = list->head;
     
     while(node != NULL){
-        printClass(node->data);
         node = node->next;
     }
         

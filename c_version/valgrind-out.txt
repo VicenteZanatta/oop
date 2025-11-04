@@ -1,215 +1,886 @@
-==10159== Memcheck, a memory error detector
-==10159== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==10159== Using Valgrind-3.19.0-8d3c8034b8-20220411 and LibVEX; rerun with -h for copyright info
-==10159== Command: ./scheduler
-==10159== Parent PID: 10157
-==10159== 
---10159-- 
---10159-- Valgrind options:
---10159--    --leak-check=full
---10159--    --show-leak-kinds=all
---10159--    --track-origins=yes
---10159--    --verbose
---10159--    --log-file=valgrind-out.txt
---10159-- Contents of /proc/version:
---10159--   Linux version 6.1.0-40-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.153-1 (2025-09-20)
---10159-- 
---10159-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
---10159-- Page sizes: currently 4096, max supported 4096
---10159-- Valgrind library directory: /usr/libexec/valgrind
---10159-- Reading syms from /home/user/vscode/poo/c_version/scheduler
---10159-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
---10159--   Considering /usr/lib/debug/.build-id/65/80196fa83df5c1edec10a57b2725eda6c73d7c.debug ..
---10159--   .. build-id is valid
---10159-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
---10159--   Considering /usr/lib/debug/.build-id/82/26c2aa6b808ebd5a6fafb694a7fb3287f33590.debug ..
---10159--   .. build-id is valid
---10159--    object doesn't have a dynamic symbol table
---10159-- Scheduler: using generic scheduler lock implementation.
---10159-- Reading suppressions file: /usr/libexec/valgrind/default.supp
-==10159== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-10159-by-user-on-???
-==10159== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-10159-by-user-on-???
-==10159== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-10159-by-user-on-???
-==10159== 
-==10159== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==10159== don't want to do, unless you know exactly what you're doing,
-==10159== or are doing some strange experiment):
-==10159==   /usr/bin/vgdb --pid=10159 ...command...
-==10159== 
-==10159== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==10159==   /path/to/gdb ./scheduler
-==10159== and then give GDB the following command
-==10159==   target remote | /usr/bin/vgdb --pid=10159
-==10159== --pid is optional if only one valgrind process is running
-==10159== 
---10159-- REDIR: 0x40239c0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bb0e2 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---10159-- REDIR: 0x40221a0 (ld-linux-x86-64.so.2:index) redirected to 0x580bb0fc (vgPlain_amd64_linux_REDIR_FOR_index)
---10159-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
---10159--   Considering /usr/lib/debug/.build-id/ad/f1388be4d8781737b0c83fe111a5a9c6e930aa.debug ..
---10159--   .. build-id is valid
---10159-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
---10159--   Considering /usr/lib/debug/.build-id/d8/ec66cffcb23a75c3f15940674d6028709121f8.debug ..
---10159--   .. build-id is valid
-==10159== WARNING: new redirection conflicts with existing -- ignoring it
---10159--     old: 0x040239c0 (strlen              ) R-> (0000.0) 0x580bb0e2 vgPlain_amd64_linux_REDIR_FOR_strlen
---10159--     new: 0x040239c0 (strlen              ) R-> (2007.0) 0x048478a0 strlen
---10159-- REDIR: 0x40223c0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4848780 (strcmp)
---10159-- REDIR: 0x4021630 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x484c1a0 (mempcpy)
---10159-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
---10159--   Considering /usr/lib/debug/.build-id/61/96744a316dbd57c0fd8968df1680aac482cec4.debug ..
---10159--   .. build-id is valid
-==10159== WARNING: new redirection conflicts with existing -- ignoring it
---10159--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
---10159--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b90 aligned_alloc
-==10159== WARNING: new redirection conflicts with existing -- ignoring it
---10159--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
---10159--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b60 aligned_alloc
-==10159== WARNING: new redirection conflicts with existing -- ignoring it
---10159--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
---10159--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b90 aligned_alloc
-==10159== WARNING: new redirection conflicts with existing -- ignoring it
---10159--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
---10159--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b60 aligned_alloc
---10159-- REDIR: 0x4904540 (libc.so.6:strnlen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49045d0 (libc.so.6:strpbrk) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49026f0 (libc.so.6:strcmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49174e0 (libc.so.6:wcsnlen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901830 (libc.so.6:memset) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4915e20 (libc.so.6:wcslen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4900e60 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4915c50 (libc.so.6:wcschr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49025e0 (libc.so.6:index) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4904600 (libc.so.6:rindex) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4915ce0 (libc.so.6:wcscmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901a70 (libc.so.6:stpncpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4916230 (libc.so.6:wmemchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49043f0 (libc.so.6:strncmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901ae0 (libc.so.6:strcasecmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4903950 (libc.so.6:strcspn) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4915d70 (libc.so.6:wcscpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4902560 (libc.so.6:strcat) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49042e0 (libc.so.6:strncasecmp_l) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4900d70 (libc.so.6:bcmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49017a0 (libc.so.6:memrchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4902660 (libc.so.6:strchrnul) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49038d0 (libc.so.6:strcpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901b80 (libc.so.6:strcasecmp_l) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49041b0 (libc.so.6:strlen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4904490 (libc.so.6:strncpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49019f0 (libc.so.6:stpcpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901580 (libc.so.6:memmove) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
-==10159== Preferring higher priority redirection:
---10159--     old: 0x049b79c0 (__memcpy_avx_unalign) R-> (2018.0) 0x04849a60 __memcpy_avx_unaligned_erms
---10159--     new: 0x049b79c0 (__memcpy_avx_unalign) R-> (2018.1) 0x0484b2b0 memmove
---10159-- REDIR: 0x4900cf0 (libc.so.6:memchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49047c0 (libc.so.6:strspn) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901690 (libc.so.6:mempcpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4904240 (libc.so.6:strncasecmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x4901930 (libc.so.6:rawmemchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
---10159-- REDIR: 0x49bda90 (libc.so.6:__strrchr_avx2) redirected to 0x48472e0 (rindex)
---10159-- REDIR: 0x48fd920 (libc.so.6:malloc) redirected to 0x4841740 (malloc)
---10159-- REDIR: 0x49ba420 (libc.so.6:__strchr_avx2) redirected to 0x4847460 (index)
---10159-- REDIR: 0x49b6fc0 (libc.so.6:__memchr_avx2) redirected to 0x4848800 (memchr)
---10159-- REDIR: 0x49b79c0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x484b2b0 (memmove)
---10159-- REDIR: 0x49bb140 (libc.so.6:__strlen_avx2) redirected to 0x4847780 (strlen)
---10159-- REDIR: 0x49ba660 (libc.so.6:__strchrnul_avx2) redirected to 0x484bca0 (strchrnul)
---10159-- REDIR: 0x49bd7c0 (libc.so.6:__strnlen_avx2) redirected to 0x4847720 (strnlen)
---10159-- REDIR: 0x49b7970 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x484bdb0 (mempcpy)
-==10159== Invalid write of size 1
-==10159==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
-==10159==    by 0x48BDCA1: snprintf (snprintf.c:31)
-==10159==    by 0x1094AA: registerClass (class.c:37)
-==10159==    by 0x109907: readClassData (file_input_output.c:98)
-==10159==    by 0x109993: identifyCommType (file_input_output.c:119)
-==10159==    by 0x109587: readInputFile (file_input_output.c:38)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==10159== 
-==10159== 
-==10159== Process terminating with default action of signal 11 (SIGSEGV)
-==10159==  Access not within mapped region at address 0x0
-==10159==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
-==10159==    by 0x48BDCA1: snprintf (snprintf.c:31)
-==10159==    by 0x1094AA: registerClass (class.c:37)
-==10159==    by 0x109907: readClassData (file_input_output.c:98)
-==10159==    by 0x109993: identifyCommType (file_input_output.c:119)
-==10159==    by 0x109587: readInputFile (file_input_output.c:38)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159==  If you believe this happened as a result of a stack
-==10159==  overflow in your program's main thread (unlikely but
-==10159==  possible), you can try to increase the size of the
-==10159==  main thread stack using the --main-stacksize= flag.
-==10159==  The main thread stack size used in this run was 8388608.
-==10159== 
-==10159== HEAP SUMMARY:
-==10159==     in use at exit: 4,704 bytes in 5 blocks
-==10159==   total heap usage: 5 allocs, 0 frees, 4,704 bytes allocated
-==10159== 
-==10159== Searching for pointers to 5 not-freed blocks
-==10159== Checked 108,080 bytes
-==10159== 
-==10159== 8 bytes in 1 blocks are definitely lost in loss record 1 of 5
-==10159==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
-==10159==    by 0x1093F1: registerClass (class.c:27)
-==10159==    by 0x109907: readClassData (file_input_output.c:98)
-==10159==    by 0x109993: identifyCommType (file_input_output.c:119)
-==10159==    by 0x109587: readInputFile (file_input_output.c:38)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159== 
-==10159== 56 bytes in 1 blocks are still reachable in loss record 2 of 5
-==10159==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
-==10159==    by 0x1091DF: initCommitment (commitment.c:20)
-==10159==    by 0x109213: registerCommitment (commitment.c:26)
-==10159==    by 0x10942F: registerClass (class.c:30)
-==10159==    by 0x109907: readClassData (file_input_output.c:98)
-==10159==    by 0x109993: identifyCommType (file_input_output.c:119)
-==10159==    by 0x109587: readInputFile (file_input_output.c:38)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159== 
-==10159== 72 bytes in 1 blocks are still reachable in loss record 3 of 5
-==10159==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
-==10159==    by 0x1093B7: registerClass (class.c:20)
-==10159==    by 0x109907: readClassData (file_input_output.c:98)
-==10159==    by 0x109993: identifyCommType (file_input_output.c:119)
-==10159==    by 0x109587: readInputFile (file_input_output.c:38)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159== 
-==10159== 472 bytes in 1 blocks are still reachable in loss record 4 of 5
-==10159==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
-==10159==    by 0x48DB1FA: __fopen_internal (iofopen.c:65)
-==10159==    by 0x109540: readInputFile (file_input_output.c:27)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159== 
-==10159== 4,096 bytes in 1 blocks are still reachable in loss record 5 of 5
-==10159==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
-==10159==    by 0x48DA8CB: _IO_file_doallocate (filedoalloc.c:101)
-==10159==    by 0x48E809F: _IO_doallocbuf (genops.c:347)
-==10159==    by 0x48E809F: _IO_doallocbuf (genops.c:342)
-==10159==    by 0x48E7203: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
-==10159==    by 0x48E8151: _IO_default_uflow (genops.c:362)
-==10159==    by 0x48DBF89: _IO_getline_info (iogetline.c:60)
-==10159==    by 0x48DB0CD: fgets (iofgets.c:53)
-==10159==    by 0x10959F: readInputFile (file_input_output.c:35)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159== 
-==10159== LEAK SUMMARY:
-==10159==    definitely lost: 8 bytes in 1 blocks
-==10159==    indirectly lost: 0 bytes in 0 blocks
-==10159==      possibly lost: 0 bytes in 0 blocks
-==10159==    still reachable: 4,696 bytes in 4 blocks
-==10159==         suppressed: 0 bytes in 0 blocks
-==10159== 
-==10159== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
-==10159== 
-==10159== 1 errors in context 1 of 2:
-==10159== Invalid write of size 1
-==10159==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
-==10159==    by 0x48BDCA1: snprintf (snprintf.c:31)
-==10159==    by 0x1094AA: registerClass (class.c:37)
-==10159==    by 0x109907: readClassData (file_input_output.c:98)
-==10159==    by 0x109993: identifyCommType (file_input_output.c:119)
-==10159==    by 0x109587: readInputFile (file_input_output.c:38)
-==10159==    by 0x1091BB: main (main.c:12)
-==10159==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==10159== 
-==10159== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==7339== Memcheck, a memory error detector
+==7339== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==7339== Using Valgrind-3.19.0-8d3c8034b8-20220411 and LibVEX; rerun with -h for copyright info
+==7339== Command: ./scheduler
+==7339== Parent PID: 7337
+==7339== 
+--7339-- 
+--7339-- Valgrind options:
+--7339--    --leak-check=full
+--7339--    --show-leak-kinds=all
+--7339--    --track-origins=yes
+--7339--    --verbose
+--7339--    --log-file=valgrind-out.txt
+--7339-- Contents of /proc/version:
+--7339--   Linux version 6.1.0-40-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.153-1 (2025-09-20)
+--7339-- 
+--7339-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--7339-- Page sizes: currently 4096, max supported 4096
+--7339-- Valgrind library directory: /usr/libexec/valgrind
+--7339-- Reading syms from /home/user/vscode/poo/c_version/scheduler
+--7339-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+--7339--   Considering /usr/lib/debug/.build-id/65/80196fa83df5c1edec10a57b2725eda6c73d7c.debug ..
+--7339--   .. build-id is valid
+--7339-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--7339--   Considering /usr/lib/debug/.build-id/82/26c2aa6b808ebd5a6fafb694a7fb3287f33590.debug ..
+--7339--   .. build-id is valid
+--7339--    object doesn't have a dynamic symbol table
+--7339-- Scheduler: using generic scheduler lock implementation.
+--7339-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==7339== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-7339-by-user-on-???
+==7339== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-7339-by-user-on-???
+==7339== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-7339-by-user-on-???
+==7339== 
+==7339== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==7339== don't want to do, unless you know exactly what you're doing,
+==7339== or are doing some strange experiment):
+==7339==   /usr/bin/vgdb --pid=7339 ...command...
+==7339== 
+==7339== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==7339==   /path/to/gdb ./scheduler
+==7339== and then give GDB the following command
+==7339==   target remote | /usr/bin/vgdb --pid=7339
+==7339== --pid is optional if only one valgrind process is running
+==7339== 
+--7339-- REDIR: 0x40239c0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bb0e2 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--7339-- REDIR: 0x40221a0 (ld-linux-x86-64.so.2:index) redirected to 0x580bb0fc (vgPlain_amd64_linux_REDIR_FOR_index)
+--7339-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--7339--   Considering /usr/lib/debug/.build-id/ad/f1388be4d8781737b0c83fe111a5a9c6e930aa.debug ..
+--7339--   .. build-id is valid
+--7339-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+--7339--   Considering /usr/lib/debug/.build-id/d8/ec66cffcb23a75c3f15940674d6028709121f8.debug ..
+--7339--   .. build-id is valid
+==7339== WARNING: new redirection conflicts with existing -- ignoring it
+--7339--     old: 0x040239c0 (strlen              ) R-> (0000.0) 0x580bb0e2 vgPlain_amd64_linux_REDIR_FOR_strlen
+--7339--     new: 0x040239c0 (strlen              ) R-> (2007.0) 0x048478a0 strlen
+--7339-- REDIR: 0x40223c0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4848780 (strcmp)
+--7339-- REDIR: 0x4021630 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x484c1a0 (mempcpy)
+--7339-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
+--7339--   Considering /usr/lib/debug/.build-id/61/96744a316dbd57c0fd8968df1680aac482cec4.debug ..
+--7339--   .. build-id is valid
+==7339== WARNING: new redirection conflicts with existing -- ignoring it
+--7339--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
+--7339--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b90 aligned_alloc
+==7339== WARNING: new redirection conflicts with existing -- ignoring it
+--7339--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
+--7339--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b60 aligned_alloc
+==7339== WARNING: new redirection conflicts with existing -- ignoring it
+--7339--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
+--7339--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b90 aligned_alloc
+==7339== WARNING: new redirection conflicts with existing -- ignoring it
+--7339--     old: 0x048fe600 (memalign            ) R-> (1011.0) 0x04846bc0 memalign
+--7339--     new: 0x048fe600 (memalign            ) R-> (1017.0) 0x04846b60 aligned_alloc
+--7339-- REDIR: 0x4904540 (libc.so.6:strnlen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49045d0 (libc.so.6:strpbrk) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49026f0 (libc.so.6:strcmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49174e0 (libc.so.6:wcsnlen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901830 (libc.so.6:memset) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4915e20 (libc.so.6:wcslen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4900e60 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4915c50 (libc.so.6:wcschr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49025e0 (libc.so.6:index) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4904600 (libc.so.6:rindex) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4915ce0 (libc.so.6:wcscmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901a70 (libc.so.6:stpncpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4916230 (libc.so.6:wmemchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49043f0 (libc.so.6:strncmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901ae0 (libc.so.6:strcasecmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4903950 (libc.so.6:strcspn) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4915d70 (libc.so.6:wcscpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4902560 (libc.so.6:strcat) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49042e0 (libc.so.6:strncasecmp_l) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4900d70 (libc.so.6:bcmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49017a0 (libc.so.6:memrchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4902660 (libc.so.6:strchrnul) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49038d0 (libc.so.6:strcpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901b80 (libc.so.6:strcasecmp_l) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49041b0 (libc.so.6:strlen) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4904490 (libc.so.6:strncpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49019f0 (libc.so.6:stpcpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901580 (libc.so.6:memmove) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+==7339== Preferring higher priority redirection:
+--7339--     old: 0x049b79c0 (__memcpy_avx_unalign) R-> (2018.0) 0x04849a60 __memcpy_avx_unaligned_erms
+--7339--     new: 0x049b79c0 (__memcpy_avx_unalign) R-> (2018.1) 0x0484b2b0 memmove
+--7339-- REDIR: 0x4900cf0 (libc.so.6:memchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49047c0 (libc.so.6:strspn) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901690 (libc.so.6:mempcpy) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4904240 (libc.so.6:strncasecmp) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x4901930 (libc.so.6:rawmemchr) redirected to 0x48381b0 (_vgnU_ifunc_wrapper)
+--7339-- REDIR: 0x49bda90 (libc.so.6:__strrchr_avx2) redirected to 0x48472e0 (rindex)
+--7339-- REDIR: 0x48fd920 (libc.so.6:malloc) redirected to 0x4841740 (malloc)
+==7339== Invalid write of size 8
+==7339==    at 0x109E5D: initList (linked_list.c:28)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+--7339-- REDIR: 0x49ba420 (libc.so.6:__strchr_avx2) redirected to 0x4847460 (index)
+--7339-- REDIR: 0x49b6fc0 (libc.so.6:__memchr_avx2) redirected to 0x4848800 (memchr)
+--7339-- REDIR: 0x49b79c0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x484b2b0 (memmove)
+--7339-- REDIR: 0x49bb140 (libc.so.6:__strlen_avx2) redirected to 0x4847780 (strlen)
+--7339-- REDIR: 0x49ba660 (libc.so.6:__strchrnul_avx2) redirected to 0x484bca0 (strchrnul)
+--7339-- REDIR: 0x49bd7c0 (libc.so.6:__strnlen_avx2) redirected to 0x4847720 (strnlen)
+--7339-- REDIR: 0x49b7970 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x484bdb0 (mempcpy)
+==7339== Invalid write of size 1
+==7339==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x1094F6: creatLesson (lesson.c:34)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b2f8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10945F: creatLesson (lesson.c:20)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 1
+==7339==    at 0x484BE64: mempcpy (vg_replace_strmem.c:1668)
+==7339==    by 0x48E8227: _IO_default_xsputn (genops.c:386)
+==7339==    by 0x48E8227: _IO_default_xsputn (genops.c:370)
+==7339==    by 0x48C150D: outstring_func (vfprintf-internal.c:239)
+==7339==    by 0x48C150D: __vfprintf_internal (vfprintf-internal.c:767)
+==7339==    by 0x48E3757: __vsnprintf_internal (vsnprintf.c:114)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x1094F6: creatLesson (lesson.c:34)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b2f8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10945F: creatLesson (lesson.c:20)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 1
+==7339==    at 0x48E3764: __vsnprintf_internal (vsnprintf.c:117)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x1094F6: creatLesson (lesson.c:34)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b310 is 16 bytes after a block of size 16 in arena "client"
+==7339== 
+==7339== Invalid write of size 1
+==7339==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x109517: creatLesson (lesson.c:35)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b32b is 21 bytes before a block of size 64 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 1
+==7339==    at 0x48E8275: _IO_default_xsputn (genops.c:394)
+==7339==    by 0x48E8275: _IO_default_xsputn (genops.c:370)
+==7339==    by 0x48C150D: outstring_func (vfprintf-internal.c:239)
+==7339==    by 0x48C150D: __vfprintf_internal (vfprintf-internal.c:767)
+==7339==    by 0x48E3757: __vsnprintf_internal (vsnprintf.c:114)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x109517: creatLesson (lesson.c:35)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b32b is 21 bytes before a block of size 64 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 1
+==7339==    at 0x48E3764: __vsnprintf_internal (vsnprintf.c:117)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x109517: creatLesson (lesson.c:35)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b336 is 10 bytes before a block of size 64 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109EB2: initNode (linked_list.c:44)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3c8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109EBE: initNode (linked_list.c:45)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3d0 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109EEE: createNode (linked_list.c:54)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3c8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109F37: addNode (linked_list.c:67)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== Invalid read of size 8
+==7339==    at 0x109F41: addNode (linked_list.c:69)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109F49: addNode (linked_list.c:69)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3d0 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid read of size 8
+==7339==    at 0x109F51: addNode (linked_list.c:70)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109F64: addNode (linked_list.c:71)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+--7339-- REDIR: 0x49ba850 (libc.so.6:__strcmp_avx2) redirected to 0x4848680 (strcmp)
+==7339== Invalid write of size 8
+==7339==    at 0x109EB2: initNode (linked_list.c:44)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4bc58 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109EBE: initNode (linked_list.c:45)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4bc60 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109EEE: createNode (linked_list.c:54)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4bc58 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid read of size 8
+==7339==    at 0x109F41: addNode (linked_list.c:69)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109F49: addNode (linked_list.c:69)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4ba90 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== Invalid read of size 8
+==7339==    at 0x109F51: addNode (linked_list.c:70)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== Invalid write of size 8
+==7339==    at 0x109F64: addNode (linked_list.c:71)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+--7339-- REDIR: 0x48fdee0 (libc.so.6:free) redirected to 0x4844110 (free)
+==7339== Invalid read of size 8
+==7339==    at 0x109F88: printList (linked_list.c:81)
+==7339==    by 0x10921B: main (main.c:19)
+==7339==  Address 0x4a4b3d0 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== HEAP SUMMARY:
+==7339==     in use at exit: 848 bytes in 29 blocks
+==7339==   total heap usage: 32 allocs, 3 frees, 6,440 bytes allocated
+==7339== 
+==7339== Searching for pointers to 29 not-freed blocks
+==7339== Checked 106,832 bytes
+==7339== 
+==7339== 8 bytes in 1 blocks are indirectly lost in loss record 1 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 16 bytes in 1 blocks are indirectly lost in loss record 2 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10A0CB: creatPPCommitment (ppCommitment.c:20)
+==7339==    by 0x10A00C: creatOrientation (orientation.c:24)
+==7339==    by 0x109DDD: readOrientation (file_input_output.c:165)
+==7339==    by 0x1096CD: processCommitment (file_input_output.c:54)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 16 (8 direct, 8 indirect) bytes in 1 blocks are definitely lost in loss record 3 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 56 bytes in 7 blocks are indirectly lost in loss record 4 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 64 bytes in 1 blocks are indirectly lost in loss record 5 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x10A0F6: creatPPCommitment (ppCommitment.c:22)
+==7339==    by 0x10A00C: creatOrientation (orientation.c:24)
+==7339==    by 0x109DDD: readOrientation (file_input_output.c:165)
+==7339==    by 0x1096CD: processCommitment (file_input_output.c:54)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 64 (8 direct, 56 indirect) bytes in 1 blocks are definitely lost in loss record 6 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 192 (112 direct, 80 indirect) bytes in 1 blocks are definitely lost in loss record 7 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109FDA: creatOrientation (orientation.c:22)
+==7339==    by 0x109DDD: readOrientation (file_input_output.c:165)
+==7339==    by 0x1096CD: processCommitment (file_input_output.c:54)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 512 bytes in 8 blocks are indirectly lost in loss record 8 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 576 (64 direct, 512 indirect) bytes in 8 blocks are definitely lost in loss record 9 of 9
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10945F: creatLesson (lesson.c:20)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== LEAK SUMMARY:
+==7339==    definitely lost: 192 bytes in 11 blocks
+==7339==    indirectly lost: 656 bytes in 18 blocks
+==7339==      possibly lost: 0 bytes in 0 blocks
+==7339==    still reachable: 0 bytes in 0 blocks
+==7339==         suppressed: 0 bytes in 0 blocks
+==7339== 
+==7339== ERROR SUMMARY: 357 errors from 27 contexts (suppressed: 0 from 0)
+==7339== 
+==7339== 1 errors in context 1 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109F64: addNode (linked_list.c:71)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 1 errors in context 2 of 27:
+==7339== Invalid read of size 8
+==7339==    at 0x109F51: addNode (linked_list.c:70)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 1 errors in context 3 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109F49: addNode (linked_list.c:69)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4ba90 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 1 errors in context 4 of 27:
+==7339== Invalid read of size 8
+==7339==    at 0x109F41: addNode (linked_list.c:69)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 1 errors in context 5 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109EEE: createNode (linked_list.c:54)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4bc58 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 1 errors in context 6 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109EBE: initNode (linked_list.c:45)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4bc60 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 1 errors in context 7 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109EB2: initNode (linked_list.c:44)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4bc58 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096E4: processCommitment (file_input_output.c:55)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 1 errors in context 8 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109F37: addNode (linked_list.c:67)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 1 errors in context 9 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109E5D: initList (linked_list.c:28)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 7 errors in context 10 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109F64: addNode (linked_list.c:71)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 7 errors in context 11 of 27:
+==7339== Invalid read of size 8
+==7339==    at 0x109F51: addNode (linked_list.c:70)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 7 errors in context 12 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109F49: addNode (linked_list.c:69)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3d0 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 7 errors in context 13 of 27:
+==7339== Invalid read of size 8
+==7339==    at 0x109F41: addNode (linked_list.c:69)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4a048 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E49: initList (linked_list.c:25)
+==7339==    by 0x1091EA: main (main.c:13)
+==7339== 
+==7339== 
+==7339== 8 errors in context 14 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109EEE: createNode (linked_list.c:54)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3c8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 8 errors in context 15 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109EBE: initNode (linked_list.c:45)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3d0 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 8 errors in context 16 of 27:
+==7339== Invalid write of size 8
+==7339==    at 0x109EB2: initNode (linked_list.c:44)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b3c8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 8 errors in context 17 of 27:
+==7339== Invalid write of size 1
+==7339==    at 0x48E3764: __vsnprintf_internal (vsnprintf.c:117)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x109517: creatLesson (lesson.c:35)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b336 is 10 bytes before a block of size 64 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 8 errors in context 18 of 27:
+==7339== Invalid write of size 1
+==7339==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x109517: creatLesson (lesson.c:35)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b32b is 21 bytes before a block of size 64 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 8 errors in context 19 of 27:
+==7339== Invalid write of size 1
+==7339==    at 0x48E3764: __vsnprintf_internal (vsnprintf.c:117)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x1094F6: creatLesson (lesson.c:34)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b310 is 16 bytes after a block of size 16 in arena "client"
+==7339== 
+==7339== 
+==7339== 8 errors in context 20 of 27:
+==7339== Invalid write of size 1
+==7339==    at 0x48E373F: __vsnprintf_internal (vsnprintf.c:112)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x1094F6: creatLesson (lesson.c:34)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b2f8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10945F: creatLesson (lesson.c:20)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 9 errors in context 21 of 27:
+==7339== Invalid read of size 8
+==7339==    at 0x109F88: printList (linked_list.c:81)
+==7339==    by 0x10921B: main (main.c:19)
+==7339==  Address 0x4a4b3d0 is 8 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x109E7C: initNode (linked_list.c:36)
+==7339==    by 0x109EE1: createNode (linked_list.c:52)
+==7339==    by 0x109F13: addNode (linked_list.c:63)
+==7339==    by 0x1096B8: processCommitment (file_input_output.c:51)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 95 errors in context 22 of 27:
+==7339== Invalid write of size 1
+==7339==    at 0x48E8275: _IO_default_xsputn (genops.c:394)
+==7339==    by 0x48E8275: _IO_default_xsputn (genops.c:370)
+==7339==    by 0x48C150D: outstring_func (vfprintf-internal.c:239)
+==7339==    by 0x48C150D: __vfprintf_internal (vfprintf-internal.c:767)
+==7339==    by 0x48E3757: __vsnprintf_internal (vsnprintf.c:114)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x109517: creatLesson (lesson.c:35)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b32b is 21 bytes before a block of size 64 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10924C: creatCommitment (commitment.c:27)
+==7339==    by 0x1094B4: creatLesson (lesson.c:27)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== 
+==7339== 156 errors in context 23 of 27:
+==7339== Invalid write of size 1
+==7339==    at 0x484BE64: mempcpy (vg_replace_strmem.c:1668)
+==7339==    by 0x48E8227: _IO_default_xsputn (genops.c:386)
+==7339==    by 0x48E8227: _IO_default_xsputn (genops.c:370)
+==7339==    by 0x48C150D: outstring_func (vfprintf-internal.c:239)
+==7339==    by 0x48C150D: __vfprintf_internal (vfprintf-internal.c:767)
+==7339==    by 0x48E3757: __vsnprintf_internal (vsnprintf.c:114)
+==7339==    by 0x48BDCA1: snprintf (snprintf.c:31)
+==7339==    by 0x1094F6: creatLesson (lesson.c:34)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339==  Address 0x4a4b2f8 is 0 bytes after a block of size 8 alloc'd
+==7339==    at 0x48417B4: malloc (vg_replace_malloc.c:381)
+==7339==    by 0x10945F: creatLesson (lesson.c:20)
+==7339==    by 0x109A89: readLessonData (file_input_output.c:114)
+==7339==    by 0x1096A1: processCommitment (file_input_output.c:50)
+==7339==    by 0x109634: readInputFile (file_input_output.c:39)
+==7339==    by 0x109204: main (main.c:16)
+==7339== 
+==7339== ERROR SUMMARY: 357 errors from 27 contexts (suppressed: 0 from 0)

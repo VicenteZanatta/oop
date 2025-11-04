@@ -6,18 +6,17 @@
 
 typedef struct commitment{
 
-    char idString[8];    // id in string type for print "A000000"
+    char idString[ID_STRING_LENGHT];    // id in string type for print "A000000"
     char type;                          // first caracter of idString
     int id;                             // 6 digits from idString 
-    char date[11];      // format dd/mm/yyyy
-    char time[6];      // format hh:mm
+    char date[DATE_STRING_LENGHT];      // format dd/mm/yyyy
+    char time[TIME_STRING_LENGHT];      // format hh:mm
     int duration;                       // in minutes
     int priority;
     int priorityFactor;       
     void* specific_Data;                // pointer for class contaning specific data struct for each type of commitment
 
-
-    void (*destroy)(struct commitment); //destruct method
+    void (*destroy)(struct commitment*); //destruct method
 
 }Commitment;
 
@@ -25,6 +24,7 @@ Commitment* creatCommitment(char* arg_idString, char arg_type, int arg_id, char 
                             int arg_duration, int arg_priority, int arg_priorityFac) {
     
     Commitment* com = malloc(sizeof(Commitment));
+
     if(com == NULL){
         printf("ERROR WHILE CREATING [%s] COMMITMENT", arg_idString);
         return NULL;    
