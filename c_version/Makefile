@@ -2,14 +2,21 @@
 CC = gcc
 
 # Flags de compilação
-CFLAGS = -Wall -Wextra -Iinclude -ggdb3 -std=c11 -O0
+CFLAGS = -Wall -Wextra -Iinc -ggdb3 -std=c11 -O0
 
 # Flags de linkagem
 LDFLAGS = -lm
 
 # Arquivos fonte
-SRC = src/main.c src/commitment.c src/lesson.c src/file_input_output.c src/linked_list.c src/orientation.c src/ppCommitment.c src/dept_meeting.c
-
+SRC = src/main.c \
+      src/classes/commitment.c \
+      src/classes/lesson.c \
+      src/classes/orientation.c \
+      src/classes/pp_commitment.c \
+      src/classes/dept_meeting.c \
+      src/util/file_input_output.c \
+      src/util/linked_list.c
+	  
 # Objetos gerados
 OBJ = $(SRC:.c=.o)
 

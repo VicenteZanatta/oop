@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../inc/commitment.h"
-#include "../inc/lesson.h"
+#include "classes/commitment.h"
+#include "classes/lesson.h"
 
 typedef struct node{
 

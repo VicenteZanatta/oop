@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../inc/classes/commitment.h"
+#include "classes/commitment.h"
 
 // Class Postponable Commitments heritage from Class Commitment
 

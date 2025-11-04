@@ -4,11 +4,11 @@
 #include <ctype.h>
 #include <math.h> //nedd to use -lm for link pow function
 #include <stdbool.h>
-#include "../inc/lesson.h" 
-#include "../inc/commitment.h"
-#include "../inc/linked_list.h"
-#include "../inc/orientation.h"
-#include "../inc/constants.h"
+#include "classes/lesson.h" 
+#include "classes/commitment.h"
+#include "util/linked_list.h"
+#include "classes/orientation.h"
+#include "util/constants.h"
 
 
 

@@ -2,7 +2,7 @@
 #define ORIENTATION_H
 
 #include <stdbool.h>
-#include "../inc/classes/commitment.h"
+#include "classes/commitment.h"
 
 
 typedef struct orientation Orientation;

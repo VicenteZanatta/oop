@@ -3,6 +3,10 @@
         "class.h": "c",
         "stdio.h": "c",
         "stdbool.h": "c",
-        "ppcommitment.h": "c"
+        "ppcommitment.h": "c",
+        "pp_commitment.h": "c",
+        "constants.h": "c",
+        "commitment.h": "c",
+        "linked_list.h": "c"
     }
 }

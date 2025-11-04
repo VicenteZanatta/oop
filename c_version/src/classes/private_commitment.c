@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../inc/classes/pp_commitment.h"
-#include "../inc/util/constants.h"
+#include "classes/pp_commitment.h"
+#include "util/constants.h"
 
 typedef struct privateCommitment
 {
