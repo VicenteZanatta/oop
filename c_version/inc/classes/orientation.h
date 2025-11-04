@@ -1,7 +1,8 @@
 #ifndef ORIENTATION_H
 #define ORIENTATION_H
 
-#include "../inc/commitment.h"
+#include <stdbool.h>
+#include "../inc/classes/commitment.h"
 
 
 typedef struct orientation Orientation;

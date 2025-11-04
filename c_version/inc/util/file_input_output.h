@@ -1,7 +1,7 @@
 #ifndef FILE_INPUT_OUTPUT_H
 #define FILE_INPUT_OUTPUT_H
 
-#include "../inc/linked_list.h"
+#include "../inc/util/linked_list.h"
 
 int readInputFile(char* file, List* commitmentList);
 

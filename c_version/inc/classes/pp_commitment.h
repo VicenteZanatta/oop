@@ -1,7 +1,7 @@
 #ifndef PPCOMMITMENT_H
 #define PPCOMMITMENT_H
 
-#include "../inc/commitment.h"
+#include "../inc/classes/commitment.h"
 
 typedef struct postponableCommitment ppCommitment;
 

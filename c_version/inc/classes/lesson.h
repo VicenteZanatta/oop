@@ -1,7 +1,7 @@
 #ifndef LESSON_H
 #define LESSON_H
 
-#include "../inc/commitment.h"
+#include "../inc/classes/commitment.h"
 
 typedef struct lesson Lesson;
 

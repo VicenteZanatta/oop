@@ -1,7 +1,7 @@
 #ifndef DEPT_MEETING_H
 #define DEPT_MEETING_H
 
-#include "../inc/commitment.h"
+#include "../inc/classes/commitment.h"
 
 typedef struct departamentMeeting DeptMeeting;
 

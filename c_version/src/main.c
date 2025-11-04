@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../inc/commitment.h"
-#include "../inc/file_input_output.h"
-#include "../inc/linked_list.h"
+#include "../inc/classes/commitment.h"
+#include "../inc/util/file_input_output.h"
+#include "../inc/util/linked_list.h"
 
 #define SCHEDULER_INPUT_FILE "agenda.txt" 
 

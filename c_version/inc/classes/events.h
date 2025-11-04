@@ -1,7 +1,7 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-#include "../inc/commitment.h"
+#include "../inc/classes/commitment.h"
 
 typedef struct event Event;
 

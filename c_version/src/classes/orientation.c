@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../inc/commitment.h"
-#include "../inc/pp_commitment.h"
-#include "../inc/constants.h"
+#include "../inc/classes/commitment.h"
+#include "../inc/classes/pp_commitment.h"
+#include "../inc/util/constants.h"
 
 
 typedef struct orientation

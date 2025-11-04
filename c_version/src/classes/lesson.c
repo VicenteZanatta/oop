@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../inc/commitment.h"
-#include "../inc/constants.h"
+#include "../inc/classes/commitment.h"
+#include "../inc/util/constants.h"
 
 typedef struct lession
 {
