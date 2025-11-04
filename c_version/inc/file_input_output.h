@@ -5,7 +5,7 @@
 
 int readInputFile(char* file, List* commitmentList);
 
-void processCommitment(char* ID, FILE* file_pointer);
+void processCommitment(char* ID, FILE* file_pointer, List* commitmentList);
 
 int convertToInt(char* charID);
 

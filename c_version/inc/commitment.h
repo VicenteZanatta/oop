@@ -5,12 +5,13 @@
 
 typedef struct commitment Commitment;
 
-Commitment* initCommitment();
-
-Commitment* registerCommitment(char* IDchar, char type, int id, char *date, char *time, int duration, int priority);
-
-void printCommitment(Commitment* com);
+Commitment* creatCommitment(char* idString, char type, int id, char *date, char *time, 
+                            int duration, int priority, int priorityMuliplier);
 
 void printCommitment(Commitment* com);
+
+void increaseMultiplier(Commitment* com);
+
+void destroyCommitment(Commitment* com);    //destruct method
 
 #endif

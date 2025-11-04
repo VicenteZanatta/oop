@@ -5,7 +5,7 @@
 #include "../inc/file_input_output.h"
 #include "../inc/linked_list.h"
 
-#define SCHEDULER_INPUT_FILE "agenda_teste.txt" 
+#define SCHEDULER_INPUT_FILE "agenda.txt" 
 
 
 int main(){

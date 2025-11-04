@@ -3,18 +3,23 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h> //nedd to use -lm for link pow function
-#include "../inc/class.h" 
+#include <stdbool.h>
+#include "../inc/lesson.h" 
 #include "../inc/commitment.h"
 #include "../inc/linked_list.h"
+#include "../inc/orientation.h"
+#include "../inc/constants.h"
+
 
 
 #define LINE_LENGHT 128
 
 int readInputFile(char* file_name, List* commitmentList);                    // function used to read input File and receive pointer for the Linked List used to manage commitments
-Class* readClassData(char* line_buffer, FILE* file_pointer);
+Lesson* readLessonData(char* line_buffer, FILE* file_pointer);
 void processCommitment(char* ID, FILE* file_pointer, List* commitmentList);  // function used do identify type of commitment, call data reading for different types and add created node to Linked List 
 int convertToInt(char* charID);
 void lineCleaner(char* line);
+Orientation* readOrientation(char* line_buffer, FILE * file_pointer);
 
 
 
@@ -31,19 +36,23 @@ int readInputFile(char* file_name, List* commitmentList){
     while (fgets(line_buffer, sizeof(line_buffer), input_file) != NULL)
     {
         if(line_buffer[0] != '\n')
-            processCommitments(line_buffer, input_file, commitmentList);
+            processCommitment(line_buffer, input_file, commitmentList);
     }
 
     fclose(input_file);
     return 0;
 }
 
-void processCommitments(char* ID, FILE* file_pointer, List* commitmentList){
+void processCommitment(char* ID, FILE* file_pointer, List* commitmentList){
 
     switch(ID[0]){
         case 'A':
-            Class* classPointer = readClassData(ID, file_pointer);
-            addNode(classPointer, commitmentList);
+            Lesson* LessonPointer = readLessonData(ID, file_pointer);
+            addNode(LessonPointer, commitmentList);
+            break;
+        case 'O':
+            Orientation* ortPointer = readOrientation(ID, file_pointer);
+            addNode(ortPointer, commitmentList);
             break;
         default:
             printf("\nTYPE [%c] NOT IDENTIFIED\n", ID[0]);
@@ -54,32 +63,31 @@ void processCommitments(char* ID, FILE* file_pointer, List* commitmentList){
 int convertToInt(char* str)             
 {
     int result = 0;
-    int i = 0;
 
-    for(int i = 0; i < strlen(str); i++){
+    for(size_t i = 0; i < strlen(str); i++){
         if (isdigit((unsigned char)str[i]))           // check if is digit, in order to add to result
             result = result * 10 + (str[i] - '0');
     }
     return result;
 }
 
-Class* readClassData(char* line_buffer, FILE * file_pointer)
+Lesson* readLessonData(char* line_buffer, FILE * file_pointer)
 {
     //line_buffer has ID string 
     
-    char IDchar[8] = {0};         
+    char idString[ID_STRING_LENGHT] = {0};         
     char type;              
     int id = 0;                  
-    char date[11] = {0};          
-    char time[6] = {0};             
+    char date[DATE_STRING_LENGHT] = {0};          
+    char time[TIME_STRING_LENGHT] = {0};             
     int duration = 0;
-    char name[51] = {0};
-    char level[15] = {0};     //the largest possible option contains 14 letters         
+    char name[NAME_STRING_LENGHT] = {0};
+    char level[NAME_STRING_LENGHT] = {0};     //the largest possible option contains 14 letters         
     int priority = 0;
 
     lineCleaner(line_buffer);
-    snprintf(IDchar, sizeof(IDchar), "%s", line_buffer);
-    type = IDchar[0];
+    snprintf(idString, sizeof(idString), "%s", line_buffer);
+    type = idString[0];
     id = convertToInt(line_buffer);
     
     fgets(line_buffer, LINE_LENGHT, file_pointer);
@@ -103,13 +111,64 @@ Class* readClassData(char* line_buffer, FILE * file_pointer)
     lineCleaner(line_buffer);
     priority = convertToInt(line_buffer);
 
-    Class* classPointer = registerClass(IDchar, type, id, date, time, duration, priority, name, level);
+    Lesson* LessonPointer = registerLesson(idString, type, id, date, time, duration, priority, name, level);
 
-    return classPointer;
+    return LessonPointer;
  
 }
 
-void lineCleaner( char* line){              // removes '\n' from line, avoiding bugs
+Orientation* readOrientation(char* line_buffer, FILE * file_pointer)
+{
+
+    char idString[ID_STRING_LENGHT] = {0};         
+    char type;              
+    int id = 0;                  
+    char date[DATE_STRING_LENGHT] = {0};          
+    char time[TIME_STRING_LENGHT] = {0};             
+    int duration = 0;
+    char studentName[NAME_STRING_LENGHT] = {0};
+    char level[NAME_STRING_LENGHT] = {0};     //the largest possible option contains 14 letters         
+    int priority = 0;
+    bool postponable = false;
+
+    lineCleaner(line_buffer);
+    snprintf(idString, sizeof(idString), "%s", line_buffer);
+    type = idString[0];
+    id = convertToInt(line_buffer);
+    
+    fgets(line_buffer, LINE_LENGHT, file_pointer);
+    lineCleaner(line_buffer); 
+    snprintf(date, sizeof(date), "%.10s", line_buffer );            
+    snprintf(time, sizeof(time), "%.5s", line_buffer+11);             
+
+    fgets(line_buffer, LINE_LENGHT, file_pointer);
+    lineCleaner(line_buffer);
+    duration = convertToInt(line_buffer);
+
+    fgets(line_buffer, LINE_LENGHT, file_pointer); //checks if commitment is postponable
+    if(line_buffer == "true")
+        postponable = true;
+
+    fgets(line_buffer, LINE_LENGHT, file_pointer);
+    lineCleaner(line_buffer);
+    snprintf(studentName, sizeof(studentName), "%s", line_buffer);
+
+    fgets(line_buffer, LINE_LENGHT, file_pointer);
+    lineCleaner(line_buffer);
+    snprintf(level, sizeof(level), "%s", line_buffer);
+
+    fgets(line_buffer, LINE_LENGHT, file_pointer);
+    lineCleaner(line_buffer);
+    priority = convertToInt(line_buffer);
+
+    Orientation* ort = registerOrientation(idString, type, id, date, time, duration, 
+                                            priority, postponable ,studentName, level);
+
+    return ort;
+
+}
+
+void lineCleaner(char* line){              // removes '\n' from line, avoiding bugs
 
     int lastCharPosition = 0;
     
