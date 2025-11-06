@@ -46,8 +46,8 @@ void processCommitment(std::ifstream& File, std::string& textLine, List* commitm
             commitmentList->addNode(readOrientation(File, textLine));
             break;
         default:    
-            std::cout << "TYPE [" << textLine[0] << "] NOT KNOWN" << std::endl; 
-            exit(EXIT_FAILURE);
+            std::cout << "TYPE [" << textLine[0] << "] NOT KNOWN" << std::endl;
+            exit(EXIT_FAILURE); 
             break;    
     }
 }
@@ -63,20 +63,19 @@ Lesson* readLesson(std::ifstream& File, std::string arg_id)
     std::string subject;
     std::string level;
     int duration;
-    int priority;
-    
-    id = arg_id; 
+    int priority; 
     
     std::getline(File, dateTimeLine);
-    std::istringstream iss(dateTimeLine);   // functio that copie word by word from a line 
-    iss >> date >> time;
+    std::istringstream issDateTime(dateTimeLine);   // functio that copie word by word from a line 
     std::getline(File, durationString);
-    duration = std::stoi(durationString);
     std::getline(File, subject);
     std::getline(File, level);
     std::getline(File, priorityString);
-    priority = std::stoi(priorityString);
 
+    id = arg_id;
+    issDateTime >> date >> time;
+    duration = std::stoi(durationString);
+    priority = std::stoi(priorityString);
     level = validateLevel(level);
     
     Lesson* lesson = new Lesson(id, date, time, duration, priority, subject, level);
@@ -95,28 +94,35 @@ Orientation* readOrientation(std::ifstream& File, std::string arg_id)
     std::string postponableString;
     std::string studentName;
     std::string level;
+    std::string defenseString;
+    std::string defenseDate;
+    std::string defenseTime;
     bool isPostponable;
     int duration;
-    int priority;
-    
-    id = arg_id; 
+    int priority; 
     
     std::getline(File, dateTimeLine);
-    std::istringstream iss(dateTimeLine);   // functio that copie word by word from a line 
-    iss >> date >> time;
+    std::istringstream issDateTime(dateTimeLine);   // functio that copie word by word from a line 
     std::getline(File, durationString);
-    duration = std::stoi(durationString);
     std::getline(File, postponableString);
-    isPostponable = stringToBool(postponableString);
     std::getline(File, studentName);
     std::getline(File, level);
+    std::getline(File, defenseString);
+    std::istringstream issDefense(defenseString);
     std::getline(File, priorityString);
-    priority = std::stoi(priorityString);
 
+    id = arg_id;
+    issDateTime >> date >> time;
+    issDefense >> defenseDate >> defenseTime;
+    priority = std::stoi(priorityString);
+    duration = std::stoi(durationString);
+    isPostponable = stringToBool(postponableString);
     level = validateLevel(level);
 
     Orientation* orientation = new Orientation(id, date, time, duration, priority, 
-                                                isPostponable, studentName, level);
+                                                isPostponable, studentName, level,
+                                                defenseDate, defenseTime);
+    
     return orientation;
 }
 
@@ -133,7 +139,7 @@ bool stringToBool(std::string& string){
 }
 
 std::string validateLevel(const std::string& level){
-    if (level == "Graduação" || level == "Mestrado" || level == "Doutorado") {
+    if (level == "Graduação" || level == "Mestrado" || level == "Especialização") {
         return level;
     } else {
         std::cout << "INVALID DEGREE LEVEL [" << level << "]" << std::endl;
