@@ -15,4 +15,6 @@ void addNode(void* data, List* list);
 
 void printList(List* list);
 
+void destroyList(List* list);
+
 #endif

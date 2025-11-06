@@ -25,17 +25,21 @@ ppCommitment* creatPPCommitment(char* arg_idString, char arg_type, int arg_id,
     ppCom->postponable = arg_postponeable;
 
     if(!(ppCom->postponable))         
-        increaseMultiplier(ppCom->com);
+        increaseFactor(ppCom->com);
 
     return ppCom;
                                        
 }
 
-void destroyPPCommitment(Commitment* Com){
+void destroyPPCommitment(Commitment* com){
 
-    ppCommitment* ppCom = (ppCommitment*)ppCom;
+    ppCommitment* ppCom = (ppCommitment*)com;
     
     destroyCommitment(ppCom->com);
 
     free(ppCom);
+}
+
+Commitment* getPPComBase(ppCommitment* ppCom){
+    return ppCom->com;
 }

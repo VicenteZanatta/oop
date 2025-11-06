@@ -12,4 +12,6 @@ ppCommitment* creatPPCommitment(char* arg_idString, char arg_type, int arg_id,
 
 void destroyPPCommitment(Commitment* com); //destruc method
 
+Commitment* getPPComBase(ppCommitment* ppCom);
+
 #endif

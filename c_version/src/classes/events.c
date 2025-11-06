@@ -8,7 +8,7 @@
 
 typedef struct event{
     
-    ppCommitment* ppCom;
+    Commitment* Com;
     char name[NAME_STRING_LENGHT];
     char local[NAME_STRING_LENGHT];
     
@@ -22,9 +22,8 @@ Event* creatEvent(char* arg_idString, char arg_type, int arg_id,
     
     Event* event = malloc(sizeof(Event*));
 
-    event->ppCom = creatPPCommitment(arg_idString, arg_type, arg_id, arg_date, arg_time, 
-                                    arg_duration, arg_priority, EVENT_FACTOR, 
-                                    arg_postponeable);
+    event->Com = creatCommitment(arg_idString, arg_type, arg_id, arg_date, arg_time, 
+                                    arg_duration, arg_priority, EVENT_FACTOR);
 
     snprintf(event->name, NAME_STRING_LENGHT, arg_eventName);
     snprintf(event->local, NAME_STRING_LENGHT, arg_local);
@@ -36,7 +35,7 @@ void destroyEvent(Commitment* com){
 
     Event* event = (Event*)com;
     
-    destroyPPCommitment(event->ppCom);
+    destroyCommitment(event->Com);
 
     free(event);
 }

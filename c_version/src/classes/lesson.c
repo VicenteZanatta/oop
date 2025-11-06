@@ -12,6 +12,7 @@ typedef struct lession
 
 } Lesson;
 
+void destroyLesson(Commitment* com);
 
 Lesson* creatLesson(char* arg_idString, char arg_type, int arg_id, char* arg_date, 
                     char *arg_time, int arg_duration, int arg_priority, 
@@ -29,10 +30,12 @@ Lesson* creatLesson(char* arg_idString, char arg_type, int arg_id, char* arg_dat
     if(comm == NULL)
         return NULL;
 
-    lesson->commData = comm;  
+    lesson->commData = comm;
+    setDestroy(lesson->commData, destroyLesson); 
     
     snprintf(lesson->name, NAME_STRING_LENGHT, arg_name);
-    snprintf(lesson->level, NAME_STRING_LENGHT, arg_level);    // level doesn't have lenght specified, and can only assume 3 possible options
+    snprintf(lesson->level, NAME_STRING_LENGHT, arg_level);
+        // level doesn't have lenght specified, and can only assume 3 possible options
 
     return lesson;
 

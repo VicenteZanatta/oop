@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "classes/commitment.h"
-#include "classes/lesson.h"
 
 typedef struct node{
 
@@ -22,7 +21,7 @@ typedef struct list{
 
 List* initList(){
 
-    List* list = malloc(sizeof(list));
+    List* list = malloc(sizeof(List));
 
     list->head = NULL;
     list->tail = NULL;
@@ -33,7 +32,7 @@ List* initList(){
 
 Node* initNode(){
 
-    Node* node = malloc(sizeof(node));
+    Node* node = malloc(sizeof(Node));
 
     if(node == NULL){
         printf("ERROR WHILE NODE MALLOC");
@@ -83,4 +82,23 @@ void printList(List* list){
         
 
     printf("\nEND OF LINKED LIST\n");
+}
+
+void destroyList(List* list){
+
+    Node* node = list->head;
+    
+    while(node != NULL){
+        
+        Node* next = node->next;
+        
+        Commitment* com = (Commitment*)node->data;     
+        com->destroy(com);                          //call destruct method
+
+        free(node);
+
+        node = next;
+    }
+
+    free(list);
 }

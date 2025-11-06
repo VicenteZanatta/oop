@@ -37,7 +37,7 @@ void destroyOrientation(Commitment* com){
 
     Orientation* ort = (Orientation*)com;
 
-    destroyPPCommitment(ort->ppCom);
+    destroyPPCommitment(getPPComBase(ort->ppCom));
 
     free(ort);   
 

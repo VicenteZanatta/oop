@@ -6,6 +6,8 @@
 
 typedef struct commitment{
 
+    void (*destroy)(Commitment*);
+
     char idString[ID_STRING_LENGHT];    // id in string type for print "A000000"
     char type;                          // first caracter of idString
     int id;                             // 6 digits from idString 
@@ -14,9 +16,6 @@ typedef struct commitment{
     int duration;                       // in minutes
     int priority;
     int priorityFactor;       
-    void* specific_Data;                // pointer for class contaning specific data struct for each type of commitment
-
-    void (*destroy)(struct commitment*); //destruct method
 
 }Commitment;
 
@@ -42,6 +41,8 @@ Commitment* creatCommitment(char* arg_idString, char arg_type, int arg_id, char 
     com->priority = arg_priority;
     com->priorityFactor = arg_priorityFac;
 
+    com->destroy = NULL;
+
     return com;
 }
 
@@ -57,13 +58,14 @@ void printCommitment(Commitment* com) {
     printf("\nPriority: %d", com->priority);
 }
 
-void increaseMultiplier(Commitment* com){
-
-    com->priorityFactor += 1;
-}
-
 void destroyCommitment(Commitment* com){
-
     free(com);
 }
 
+void setDestroy(Commitment* com, void (*destroy)(Commitment*)){
+    com->destroy = destroy;
+}
+
+void increaseFactor(Commitment* com){
+    com->priorityFactor += 1;
+}

@@ -29,7 +29,7 @@ void destroyDeptMeeting(Commitment* com){
 
     DeptMeeting* dptMeet = (DeptMeeting*)com;
     
-    destroyPPCommitment(dptMeet->ppCom);
+    destroyPPCommitment(getPPComBase(dptMeet->ppCom));
 
     free(dptMeet);
 }
