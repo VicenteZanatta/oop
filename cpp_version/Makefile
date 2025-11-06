@@ -13,6 +13,8 @@ SRC = src/main.cpp \
       src/classes/lesson.cpp \
 	  src/util/linked_list.cpp \
 	  src/util/file_input_output.cpp\
+	  src/classes/ppCommitment.cpp \
+	  src/classes/orientation.cpp \
 	  
 # Objetos gerados
 OBJ = $(SRC:.cpp=.o)

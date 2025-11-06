@@ -17,6 +17,7 @@ public:
     Lesson(std::string id, std::string date, std::string time, int duration,
             int priority, std::string subject, std::string level);
     ~Lesson() override;
+    
 };
 
 

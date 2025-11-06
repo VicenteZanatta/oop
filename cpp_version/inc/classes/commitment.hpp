@@ -18,9 +18,11 @@ private:
 public:
     Commitment(std::string id, std::string date, std::string time, int duration,
                 int priority, int priorityFactor);
+                
     virtual ~Commitment() = default;
 
-    
+    void increaseFactor(){priorityFactor++;};   // used to increase Priority factor by 1 if commitment isn't postponable 
+    std::string limitString(const std::string& input, size_t maxLen);    
 };
 
 
