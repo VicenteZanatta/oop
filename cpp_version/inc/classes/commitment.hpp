@@ -11,6 +11,7 @@ private:
     std::string id;
     std::string date;
     std::string time;
+    std::string definition;
     int duration;
     int priority;
     int priorityFactor;
@@ -22,11 +23,16 @@ public:
     virtual ~Commitment() = default;
 
     void increaseFactor(){priorityFactor++;};   // used to increase Priority factor by 1 if commitment isn't postponable 
-    std::string limitString(const std::string& input, size_t maxLen);    
-    int getDayInt();
-    int getMonthInt();
-    int getYearInt();
-    int getTimeInt();  // Will retunr (Hours*100+minutes) making easy to use for compare
+    std::string limitString(const std::string& input, size_t maxLen);
+    void printDefenition() const; 
+
+    int getDayInt () const;
+    int getMonthInt() const;
+    int getYearInt() const;
+    int getTimeInt() const;  // Will retunr (Hours*100+minutes) making easy to use for compare
+
+    void setDefenition(std::string arg_definition);
+
 };
 
 

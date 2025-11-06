@@ -20,6 +20,7 @@ Orientation::Orientation(std::string arg_id, std::string arg_date, std::string a
                 thesisDefenseTime(arg_DefenseTime)
 {
     Commitment::limitString(studantName, NAME_STRING_LENGHT);
+    Commitment::setDefenition("Orientação de " + studantName);
 }
 
 

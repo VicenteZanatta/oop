@@ -11,26 +11,29 @@ LDFLAGS = -lm
 SRC = src/main.cpp \
       src/classes/commitment.cpp \
       src/classes/lesson.cpp \
-	  src/util/linked_list.cpp \
-	  src/util/file_input_output.cpp\
-	  src/classes/ppCommitment.cpp \
-	  src/classes/orientation.cpp \
-	  
+      src/classes/ppCommitment.cpp \
+      src/classes/orientation.cpp \
+      src/classes/dept_meeting.cpp \
+      src/classes/event.cpp \
+      src/classes/personal.cpp \
+      src/util/linked_list.cpp \
+      src/util/file_input.cpp
+
 # Objetos gerados
 OBJ = $(SRC:.cpp=.o)
 
 # Nome do executável final
 TARGET = scheduler
 
-# Regra padrão (executável)
+# Regra padrão (gera o executável)
 $(TARGET): $(OBJ)
 	$(CC) $(OBJ) -o $(TARGET) $(LDFLAGS)
-	rm -f $(OBJ)
 
-# Regra genérica para compilar cada .c em .o
+# Regra genérica para compilar cada .cpp em .o
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
+
 # Limpar arquivos gerados
-clean: 
+clean:
 	rm -f $(OBJ) $(TARGET)

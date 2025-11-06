@@ -31,6 +31,16 @@ void List::addNode(Commitment* com){
         newNode->prev = tail;
         tail = newNode;
     }
-        
+    
+}
 
+void List::printList() const
+{
+    Node* curr = head;
+
+    while(curr != nullptr)
+    {
+        curr->base->printDefenition();
+        curr = curr->next;
+    }
 }

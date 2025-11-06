@@ -24,7 +24,9 @@ public:
     ~List();
 
     void addNode(Commitment* Commitment);
+    void printList() const;
 };
+
 
 
 

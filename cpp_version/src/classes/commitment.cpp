@@ -22,13 +22,12 @@ Commitment::Commitment(std::string arg_id, std::string arg_date, std::string arg
 }
 
 std::string Commitment::limitString(const std::string& input, size_t maxLen) {
-    if (input.size() <= maxLen)
-        return input;
-    else
-        return input.substr(0, maxLen); // string is truncated at max lenght
+    if (input.size() >= maxLen)
+        return input.substr(0, maxLen);
+    return input;
 }
 
-int Commitment::getDayInt()
+int Commitment::getDayInt() const
 {
     std::string dayString;
     dayString = date.substr(0,1);
@@ -36,7 +35,7 @@ int Commitment::getDayInt()
     return std::stoi(dayString);
 }
 
-int Commitment::getMonthInt()
+int Commitment::getMonthInt () const
 {
     std::string monthString;
     monthString = date.substr(3,4);
@@ -44,7 +43,7 @@ int Commitment::getMonthInt()
     return std::stoi(monthString);
 }
 
-int Commitment::getYearInt()
+int Commitment::getYearInt () const
 {
     std::string yearString;
     yearString = date.substr(6,9);
@@ -52,7 +51,7 @@ int Commitment::getYearInt()
     return std::stoi(yearString);
 }
 
-int Commitment::getTimeInt()
+int Commitment::getTimeInt () const
 {
     std::string hourString;
     std::string minString;
@@ -67,3 +66,7 @@ int Commitment::getTimeInt()
 
     return   hour*100+min;      //Ex: input 10h50 -> output 1050
 }
+
+void Commitment::printDefenition() const {std::cout << definition << std::endl;}
+
+void Commitment::setDefenition(std::string arg_definition){definition = arg_definition;}

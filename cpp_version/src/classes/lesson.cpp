@@ -18,6 +18,7 @@ Lesson::Lesson(std::string arg_id, std::string arg_date, std::string arg_time, i
         level(arg_level)                //doesn't need string limitation because only can assume 3 values handle during reading 
 {
         Commitment::limitString(subject, SUBJECT_STRING_LENGHT);
+        Commitment::setDefenition("Aula de " + subject);
 }
 
-Lesson::~Lesson(){}
+Lesson::~Lesson() = default;
