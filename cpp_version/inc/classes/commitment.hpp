@@ -7,28 +7,30 @@
 class Commitment
 {
 private:
-
     std::string id;
     std::string date;
     std::string time;
     std::string definition;
+    std::string description;
     int duration;
     int priority;
     int priorityFactor;
     int finishHour;
     int finishMin;
+    bool isPostponable;
 
-    void addFinishTime(); //calculate and add finish time(int hour and int minute) for commitment
+    void addFinishTime();
 
 public:
     Commitment(std::string id, std::string date, std::string time, int duration,
-                int priority, int priorityFactor);
+                int priority, int priorityFactor, std::string description, 
+                bool isPostponable = false);
                 
     virtual ~Commitment() = default;
 
-    void increaseFactor(){priorityFactor++;};                           // used to increase Priority factor by 1 if commitment isn't postponable 
-    std::string limitString(const std::string& input, size_t maxLen);   //truncates string to maxLen 
-    void printDefenition() const;                                       //polymorph print method 
+    void increaseFactor(){priorityFactor++;};
+    std::string limitString(const std::string& input, size_t maxLen);
+    void printDefenition() const;
 
     int getDayInt () const;
     int getMonthInt() const;
@@ -40,11 +42,12 @@ public:
     int getDuration() const { return duration; }
     int getPriority() const { return priority; }
     int getPriorityFactor() const { return priorityFactor; }
+    int getPriorityScore() const { return priority * priorityFactor; }
+    bool getIsPostponable() const { return isPostponable; }
+    std::string getDescription() const { return description; }
+    std::string getId() const { return id; }
 
     void setDefenition(std::string arg_definition);
-
-
 };
-
 
 #endif

@@ -14,15 +14,14 @@ LDFLAGS = -lm
 SRC = src/main.cpp \
       src/classes/commitment.cpp \
       src/classes/lesson.cpp \
-      src/classes/ppCommitment.cpp \
       src/classes/orientation.cpp \
       src/classes/dept_meeting.cpp \
       src/classes/event.cpp \
       src/classes/personal.cpp \
-      src/util/merge_sort.cpp \
-      src/util/linked_list.cpp \
-      src/util/file_input.cpp \
-      src/util/filter.cpp
+      src/util/commitment_list.cpp \
+      src/util/removed_comm_list.cpp \
+      src/util/file_input.cpp 
+      #src/util/filter.cpp
 
 # Objetos gerados
 OBJ = $(SRC:.cpp=.o)

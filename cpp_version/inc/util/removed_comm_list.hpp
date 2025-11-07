@@ -1,20 +1,37 @@
-#ifndef REMOVED_COMMITMENT_LIST_HPP
-#define REMOVED_COMMITMENT_LIST_HPP
+#ifndef REMOVED_COMMITMENTS_LIST_HPP
+#define REMOVED_COMMITMENTS_LIST_HPP
 
-#include "util/linked_list.hpp"
+#include <string>
+#include <iostream>
+#include "util/linked_list_template.hpp"
+#include "classes/commitment.hpp"
 
-class RemovedCommitmentList : public List
-{
+class RemovedCommitmentsList {
 private:
-    std::string moreImportantCommitment;
+    struct RemovedComm {
+        Commitment* removedCommitment;
+        std::string moreImportantId;
+        
+        RemovedComm(Commitment* commitment, const std::string& removerId);
+        void printInfo() const;
+    };
+    
+    LinkedListTemplate<RemovedComm> removedList;
 
 public:
-    RemovedCommitmentList();
+    RemovedCommitmentsList();
+    ~RemovedCommitmentsList();
+
+    void addRemovedCommitment(Commitment* commitment, const std::string& removerId);
+    void printRemovedCommitments() const;
+    bool isEmpty() const { return removedList.isEmpty(); }
     
-    void addRemovedCommitment(Commitment* commitment, const std::string& importantId);
+    // Access methods for iteration
+    auto getHead() const { return removedList.getHead(); }
+    auto getTail() const { return removedList.getTail(); }
     
-    std::string getMoreImportantCommitment() const;
-    void setMoreImportantCommitment(const std::string& importantId);
+    // Clear the list (without deleting Commitment objects)
+    void clear() { removedList.clear(); }
 };
 
 #endif

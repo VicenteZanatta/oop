@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include <string>
-#include "util/linked_list.hpp"
+#include "util/commitment_list.hpp"
 #include "classes/lesson.hpp"
 
-int readInputFile(std::string fileName, List* commitmentList);
+int readInputFile(std::string fileName, CommitmentList* commitmentList);
 
 void processCommitment(std::ifstream& File, std::string& textLine, 
-                        List* commitmentList);
+                        CommitmentList* commitmentList);
 
 Lesson* readLesson(std::ifstream& File, std::string arg_id);
 

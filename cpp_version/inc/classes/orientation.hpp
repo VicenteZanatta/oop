@@ -2,9 +2,9 @@
 #define ORIENTATION_HPP
 
 #include <iostream>
-#include "classes/ppCommitment.hpp"
+#include "classes/commitment.hpp"
 
-class Orientation : public ppCommitment
+class Orientation : public Commitment
 {
 private:
     std::string studantName;
@@ -22,8 +22,6 @@ public:
     int getDefenseMonthInt();
     int getDefenseYearInt();
     int getDefenseTimeInt();  // Will retunr (Hours*100+minutes) making easy to use for compare
-
 };
-
 
 #endif

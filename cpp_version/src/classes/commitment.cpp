@@ -2,12 +2,14 @@
 #include <string>
 #include "classes/commitment.hpp"
 
-int const ID_STRING_LENGHT       = 8;  //"A000001[\0]"    
+int const ID_STRING_LENGHT       = 8;
 int const DATE_STRING_LENGHT     = 11;
 int const TIME_STRING_LENGHT     = 6;
 
 Commitment::Commitment(std::string arg_id, std::string arg_date, std::string arg_time, 
-                        int arg_duration, int arg_priority, int arg_priorityFactor){
+                        int arg_duration, int arg_priority, int arg_priorityFactor,
+                        std::string arg_description,
+                        bool arg_isPostponable){
     
     id = limitString(arg_id, ID_STRING_LENGHT);
     date = limitString(arg_date, DATE_STRING_LENGHT);
@@ -15,9 +17,16 @@ Commitment::Commitment(std::string arg_id, std::string arg_date, std::string arg
     duration = arg_duration;
     priority = arg_priority;
     priorityFactor = arg_priorityFactor;
+    description = arg_description;
+    isPostponable = arg_isPostponable;
+
+    if(!isPostponable)
+        increaseFactor();
 
     addFinishTime();
 }
+
+// ... (outros métodos permanecem iguais)
 
 std::string Commitment::limitString(const std::string& input, size_t maxLen) 
 {

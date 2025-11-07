@@ -8,8 +8,8 @@ DepartmentMeeting::DepartmentMeeting(std::string arg_id, std::string arg_date,
                                      std::string arg_time, int arg_duration, 
                                      int arg_priority, bool arg_postponable, 
                                      std::string arg_topic)
-    : ppCommitment(arg_id, arg_date, arg_time, arg_duration, arg_priority, 
-                  DEPARTMENT_MEETING_PRIORITY_FACTOR, arg_postponable),
+    : Commitment(arg_id, arg_date, arg_time, arg_duration, arg_priority, 
+                 DEPARTMENT_MEETING_PRIORITY_FACTOR, arg_topic, arg_postponable),
       topic(arg_topic)
 {
     Commitment::limitString(topic, TOPIC_STRING_LENGTH);

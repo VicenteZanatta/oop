@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <string>
-#include "classes/ppCommitment.hpp"
+#include "classes/commitment.hpp"
 
-class Personal : public ppCommitment
+class Personal : public Commitment
 {
 private:
     std::string description;
@@ -19,8 +19,8 @@ public:
 
     ~Personal() override;
 
-    std::string getDescription() const;
-    std::string getLocation() const;
+    std::string getDescription() const {return description;}
+    std::string getLocation() const {return location;}
 };
 
 #endif

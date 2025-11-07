@@ -1,5 +1,4 @@
 #include <iostream>
-#include "classes/ppCommitment.hpp"
 #include "classes/orientation.hpp"
 
 int const NAME_STRING_LENGHT = 51;
@@ -10,8 +9,8 @@ Orientation::Orientation(std::string arg_id, std::string arg_date, std::string a
                         std::string arg_studentName, std::string arg_level,
                         std::string arg_DefenseDate, std::string arg_DefenseTime)
             
-            : ppCommitment(arg_id, arg_date, arg_time, arg_duration, arg_priority, 
-                            ORIENTATION_PRIORITY_FACTOR, arg_postponable),
+            : Commitment(arg_id, arg_date, arg_time, arg_duration, arg_priority, 
+                         ORIENTATION_PRIORITY_FACTOR, "Orientação de " + arg_studentName, arg_postponable),
                 studantName(arg_studentName),
                 level(arg_level),
                 thesisDefenseDate(arg_DefenseDate),

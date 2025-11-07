@@ -1,11 +1,12 @@
 #include <iostream>
-#include "util/linked_list.hpp"
+#include "util/commitment_list.hpp"
 #include "util/file_input.hpp"
+#include "util/merge_sort_template.hpp"
 
 std::string const INPUT_FILE_NAME = "exemplo01/agenda.txt";
 
 int main(){
-    List* commitmentList = new List();
+    CommitmentList* commitmentList = new CommitmentList();
 
     if (readInputFile(INPUT_FILE_NAME, commitmentList) != 0) {
         std::cout << "Failed to read input file!" << std::endl;
@@ -13,14 +14,29 @@ int main(){
         return 1;
     }
 
-    std::cout << "Elementos antes da ordenação: " << commitmentList->getCount() << std::endl;
-
-    commitmentList->sort();
-
-    std::cout << "Elementos após a ordenação: " << commitmentList->getCount() << std::endl;
-
-    std::cout << "Compromissos ordenados por data e hora:" << std::endl;
+    // Sort by date/time
+    MergeSortTemplate<CommitmentList, Commitment>::sortByDateTime(commitmentList);
+    std::cout << "=== SORTED BY DATE/TIME ===" << std::endl;
     commitmentList->printList();
+    std::cout << "============================" << std::endl;
+    
+    // Sort by duration ascending
+    MergeSortTemplate<CommitmentList, Commitment>::sortByDuration(commitmentList);
+    std::cout << "=== SORTED BY DURATION (ASC) ===" << std::endl;
+    commitmentList->printList();
+    std::cout << "============================" << std::endl;
+    
+    // Sort by ID ascending
+    MergeSortTemplate<CommitmentList, Commitment>::sortById(commitmentList);
+    std::cout << "=== SORTED BY ID (ASC) ===" << std::endl;
+    commitmentList->printList();
+    std::cout << "============================" << std::endl;
+    
+    // Sort by priority descending
+    MergeSortTemplate<CommitmentList, Commitment>::sortByPriority(commitmentList);
+    std::cout << "=== SORTED BY PRIORITY (DESC) ===" << std::endl;
+    commitmentList->printList();
+    std::cout << "============================" << std::endl;
 
     delete commitmentList;
     return 0;

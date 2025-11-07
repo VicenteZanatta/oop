@@ -52,6 +52,13 @@ List::Node* Filter::handleConflict(List::Node* current, List::Node* next,
                                     RemovedCommitmentList* postponedList,
                                     RemovedCommitmentList* canceledList)
 {
-    if(current->base)
+    Commitment* currComm = current->base;
+    Commitment* nextComm = next->base; 
+    
+    if(currComm->getIsPostponable())
+        if(!nextComm->getIsPostponable())
+            //List::postponeNode(Node* curr);
+        
+        
 
 }

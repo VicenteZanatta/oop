@@ -8,7 +8,7 @@
 #include "classes/event.hpp"
 #include "classes/dept_meeting.hpp"
 #include "classes/personal.hpp"
-#include "util/linked_list.hpp"
+#include "util/commitment_list.hpp"
 #include "util/file_input.hpp"
 
 bool stringToBool(std::string& );
@@ -19,7 +19,7 @@ Event* readEvent(std::ifstream& File, std::string arg_id);
 DepartmentMeeting* readDepartmentMeeting(std::ifstream& File, std::string arg_id);
 Personal* readPersonal(std::ifstream& File, std::string arg_id);
 
-int readInputFile(std::string fileName, List* commitmentList){
+int readInputFile(std::string fileName, CommitmentList* commitmentList){
 
     std::ifstream File(fileName);   // used to read file
     std::string textLine;           // used to hold text line read 
@@ -40,30 +40,25 @@ int readInputFile(std::string fileName, List* commitmentList){
     return 0;
 }
 
-void processCommitment(std::ifstream& File, std::string& textLine, List* commitmentList)
+void processCommitment(std::ifstream& File, std::string& textLine, CommitmentList* commitmentList)
 {
     char commitmentType = textLine[0];
 
     switch(commitmentType){ 
         case 'A':
-            std::cout << commitmentType << std::endl;
-            commitmentList->addNode(readLesson(File, textLine));
+            commitmentList->addCommitment(readLesson(File, textLine)); // CORREÇÃO: addCommitment
             break;
         case 'O':
-            std::cout << commitmentType << std::endl;
-            commitmentList->addNode(readOrientation(File, textLine));
+            commitmentList->addCommitment(readOrientation(File, textLine)); // CORREÇÃO: addCommitment
             break;
         case 'E':
-            std::cout << commitmentType << std::endl; 
-            commitmentList->addNode(readEvent(File, textLine));
+            commitmentList->addCommitment(readEvent(File, textLine)); // CORREÇÃO: addCommitment
             break;
         case 'R':
-            std::cout << commitmentType << std::endl; 
-            commitmentList->addNode(readDepartmentMeeting(File, textLine));
+            commitmentList->addCommitment(readDepartmentMeeting(File, textLine)); // CORREÇÃO: addCommitment
             break;
         case 'P':
-            std::cout << commitmentType << std::endl; 
-            commitmentList->addNode(readPersonal(File, textLine));
+            commitmentList->addCommitment(readPersonal(File, textLine)); // CORREÇÃO: addCommitment
             break;
         default:    
             std::cout << "TYPE [" << commitmentType << "] NOT KNOWN" << std::endl;
@@ -75,7 +70,7 @@ void processCommitment(std::ifstream& File, std::string& textLine, List* commitm
 Lesson* readLesson(std::ifstream& File, std::string arg_id)
 {
     std::string id;
-    std::string dateTimeLine; // used to store line with date and line 
+    std::string dateTimeLine;
     std::string date;
     std::string time;
     std::string durationString;
@@ -92,20 +87,19 @@ Lesson* readLesson(std::ifstream& File, std::string arg_id)
     std::getline(File, priorityString);
 
     id = arg_id;
-    std::istringstream issDateTime(dateTimeLine);   // functio that copie word by word from a line 
+    std::istringstream issDateTime(dateTimeLine);
     issDateTime >> date >> time;
     duration = std::stoi(durationString);
     priority = std::stoi(priorityString);
     level = validateLevel(level);
     
     return new Lesson(id, date, time, duration, priority, subject, level);
-
 }
 
 Orientation* readOrientation(std::ifstream& File, std::string arg_id)
 {
     std::string id;
-    std::string dateTimeLine; // used to store line with date and line 
+    std::string dateTimeLine;
     std::string date;
     std::string time;
     std::string durationString;
@@ -129,7 +123,7 @@ Orientation* readOrientation(std::ifstream& File, std::string arg_id)
     std::getline(File, priorityString);
 
     id = arg_id;
-    std::istringstream issDateTime(dateTimeLine);   // functio that copie word by word from a line 
+    std::istringstream issDateTime(dateTimeLine);
     issDateTime >> date >> time;
     std::istringstream issDefense(defenseString);
     issDefense >> defenseDate >> defenseTime;
@@ -139,9 +133,8 @@ Orientation* readOrientation(std::ifstream& File, std::string arg_id)
     level = validateLevel(level);
 
     return new Orientation(id, date, time, duration, priority, 
-                                                isPostponable, studentName, level,
-                                                defenseDate, defenseTime);
- 
+                          isPostponable, studentName, level,
+                          defenseDate, defenseTime);
 }
 
 Event* readEvent(std::ifstream& File, std::string arg_id) {
