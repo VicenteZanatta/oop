@@ -15,7 +15,7 @@ int main(){
 
     std::cout << "Elementos antes da ordenação: " << commitmentList->getCount() << std::endl;
 
-    commitmentList->sort();
+    commitmentList->sortByDateTime();
 
     std::cout << "Elementos após a ordenação: " << commitmentList->getCount() << std::endl;
 

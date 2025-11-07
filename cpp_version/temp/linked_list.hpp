@@ -4,7 +4,6 @@
 #include "classes/commitment.hpp"
 
 class MergeSort;
-class Filter;
 
 class List
 {
@@ -13,37 +12,29 @@ private:
         Node* prev;
         Commitment* base;
         Node* next;
-        Node(Commitment* com) : prev(nullptr), base(com), next(nullptr){}
-        
-        Node* getNext() const { return next; }
-        Node* getPrev() const { return prev; }
-        void setNext(Node* newNext) { next = newNext; }
-        void setPrev(Node* newPrev) { prev = newPrev; }
+        Node(Commitment* com) : prev(nullptr), base(com), next(nullptr){}       
     };
 
     Node* head;
     Node* tail;
-
-    friend class MergeSort;   //classes that need access to private attributes (should have implemented Iterator)
-    friend class Filter;
 
 public:
     List();
     ~List();
 
     void addNode(Commitment* Commitment);
-    void removeNode(Node* nodeToRemove);
     void printList() const;
-    void sort(); 
+    void sortByDateTime(); 
 
     Node* getHead() const { return head; }
     Node* getTail() const { return tail; }
     int getCount() const;
     
-    
     void setHead(Node* newHead) { head = newHead; }
     void setTail(Node* newTail) { tail = newTail; }
-
+    
+private:
+    friend class MergeSort;
 };
 
 #endif

@@ -15,8 +15,6 @@ Commitment::Commitment(std::string arg_id, std::string arg_date, std::string arg
     duration = arg_duration;
     priority = arg_priority;
     priorityFactor = arg_priorityFactor;
-
-    addFinishTime();
 }
 
 std::string Commitment::limitString(const std::string& input, size_t maxLen) 
@@ -44,44 +42,17 @@ int Commitment::getYearInt() const
     return std::stoi(yearString);
 }
 
-void Commitment::printDefenition() const {std::cout << definition << std::endl;}    
+int Commitment::getTimeInt() const
+{
+    std::string hourString = time.substr(0, 2);
+    std::string minString = time.substr(3, 2);
+
+    int hour = std::stoi(hourString);
+    int min = std::stoi(minString);
+
+    return hour * 100 + min; // Ex: input 10:50 -> output 1050
+}
+
+void Commitment::printDefenition() const {std::cout << definition << std::endl;}
 
 void Commitment::setDefenition(std::string arg_definition) {definition = arg_definition;}
-
-void Commitment::addFinishTime()
-{
-    int startHour = std::stoi(time.substr(0, 2));
-    int startMinute = std::stoi(time.substr(3, 2));
-    
-    int totalStartMinutes = startHour * 60 + startMinute;
-    
-    int totalFinishMinutes = totalStartMinutes + duration;
-    
-    finishHour = totalFinishMinutes / 60;
-    finishMin = totalFinishMinutes % 60;
-    
-    if (finishHour >= 24) {
-        finishHour = 23;
-        finishMin = 59;
-    }
-}
-
-int Commitment::getStartHour() const
-{
-    return std::stoi(time.substr(0, 2));
-}
-
-int Commitment::getFinishHour() const
-{
-    return finishHour;
-}
-
-int Commitment::getStartMinute() const
-{
-    return std::stoi(time.substr(3, 2));
-}
-
-int Commitment::getFinishMinute() const
-{
-    return finishMin;
-}

@@ -15,10 +15,6 @@ private:
     int duration;
     int priority;
     int priorityFactor;
-    int finishHour;
-    int finishMin;
-
-    void addFinishTime(); //calculate and add finish time(int hour and int minute) for commitment
 
 public:
     Commitment(std::string id, std::string date, std::string time, int duration,
@@ -26,20 +22,17 @@ public:
                 
     virtual ~Commitment() = default;
 
-    void increaseFactor(){priorityFactor++;};                           // used to increase Priority factor by 1 if commitment isn't postponable 
-    std::string limitString(const std::string& input, size_t maxLen);   //truncates string to maxLen 
-    void printDefenition() const;                                       //polymorph print method 
+    void increaseFactor(){priorityFactor++;};   // used to increase Priority factor by 1 if commitment isn't postponable 
+    std::string limitString(const std::string& input, size_t maxLen);
+    void printDefenition() const; 
 
     int getDayInt () const;
     int getMonthInt() const;
     int getYearInt() const;
-    int getStartHour() const;
-    int getFinishHour() const;
-    int getStartMinute() const;
-    int getFinishMinute() const;
+    int getTimeInt() const;  // Will retunr (Hours*100+minutes) making easy to use for compare
     int getDuration() const { return duration; }
     int getPriority() const { return priority; }
-    int getPriorityFactor() const { return priorityFactor; }
+    int getPriorityFactor() const { return priorityFactor; }    
 
     void setDefenition(std::string arg_definition);
 

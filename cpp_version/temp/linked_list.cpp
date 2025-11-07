@@ -27,28 +27,6 @@ void List::addNode(Commitment* commitment) {
     }
 }
 
-void List::removeNode(Node* nodeToRemove)
-{
-
-    Node* prevNode = nodeToRemove->getPrev();
-    Node* nextNode = nodeToRemove->getNext();
-
-    nextNode->setPrev(prevNode);
-    prevNode->setNext(nextNode);
-
-    
-    if (nodeToRemove == head) // Update head and tail if necessary
-        head = nextNode;
-        
-    if (nodeToRemove == tail)
-        tail = prevNode;
-    
-    
-    delete nodeToRemove->base; // Delete the node
-    delete nodeToRemove;
-}
-
-
 void List::printList() const {
     Node* current = head;
     while (current) {
@@ -57,7 +35,7 @@ void List::printList() const {
     }
 }
 
-void List::sort() {
+void List::sortByDateTime() {
     MergeSort::sortByDateTime(this);
     
     if (head) {

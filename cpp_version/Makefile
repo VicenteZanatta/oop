@@ -1,6 +1,9 @@
 # Compilador
 CC = g++
 
+# Arquivo Input
+ARGS = "exemplo01/agenda.txt"
+
 # Flags de compilação
 CFLAGS = -Wall -Wextra -Iinc -ggdb3 -O0
 
@@ -16,8 +19,10 @@ SRC = src/main.cpp \
       src/classes/dept_meeting.cpp \
       src/classes/event.cpp \
       src/classes/personal.cpp \
+      src/util/merge_sort.cpp \
       src/util/linked_list.cpp \
-      src/util/file_input.cpp
+      src/util/file_input.cpp \
+      src/util/filter.cpp
 
 # Objetos gerados
 OBJ = $(SRC:.cpp=.o)
@@ -33,6 +38,9 @@ $(TARGET): $(OBJ)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Executar o programa
+run: $(TARGET)
+	./$(TARGET) $(ARGS)
 
 # Limpar arquivos gerados
 clean:
