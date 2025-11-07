@@ -19,10 +19,10 @@ void Filter::filterCommitments(List* commitmentList, List* confirmedList,
     {                
         List::Node* next = curr->getNext();
         
-        if(Filter::hasTimeConflict(curr->base, next->base))
-        {
-            curr = handleConflict(curr, next);
-        }    
+        // if(Filter::hasTimeConflict(curr->base, next->base))
+        // {
+        //     curr = handleConflict(curr, next);
+        // }    
     }   
 }
 
@@ -46,4 +46,12 @@ bool Filter::hasTimeConflict(Commitment* a, Commitment* b)
     
     return false; 
     
+}
+
+List::Node* Filter::handleConflict(List::Node* current, List::Node* next, 
+                                    RemovedCommitmentList* postponedList,
+                                    RemovedCommitmentList* canceledList)
+{
+    if(current->base)
+
 }
