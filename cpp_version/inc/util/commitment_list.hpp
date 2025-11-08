@@ -1,6 +1,7 @@
 #ifndef COMMITMENT_LIST_HPP
 #define COMMITMENT_LIST_HPP
 
+#include <string>
 #include "util/linked_list_template.hpp"
 #include "classes/commitment.hpp"
 
@@ -16,17 +17,15 @@ public:
 
     void addCommitment(Commitment* commitment);
     void removeCommitment(Commitment* commitment);
-    void printList() const;
-    Commitment* findCommitmentById(const std::string& id) const;
+    void printCommitmentList(const std::string& filename) const;
+    void printConfirmedList(const std::string& filename) const;
     bool isEmpty() const { return commitmentList.isEmpty(); }
 
-    // Access methods for sorting
     Node* getHead() const { return commitmentList.getHead(); }
     Node* getTail() const { return commitmentList.getTail(); }
     void setHead(Node* newHead) { commitmentList.setHead(newHead); }
     void setTail(Node* newTail) { commitmentList.setTail(newTail); }
     
-    // Navigation methods for sorting
     Node* getNext(Node* current) const { 
         return commitmentList.getNext(current);
     }

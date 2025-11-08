@@ -13,6 +13,7 @@ private:
         std::string moreImportantId;
         
         RemovedComm(Commitment* commitment, const std::string& removerId);
+        void printInfo() const;
     };
     
     LinkedListTemplate<RemovedComm> removedList;
@@ -22,12 +23,14 @@ public:
     ~RemovedCommitmentsList();
 
     void addRemovedCommitment(Commitment* commitment, const std::string& removerId);
-    void printRemovedCommitments(const std::string& filename) const;
+    void printRemovedCommitments() const;
     bool isEmpty() const { return removedList.isEmpty(); }
     
+    // Access methods for iteration
     auto getHead() const { return removedList.getHead(); }
     auto getTail() const { return removedList.getTail(); }
     
+    // Clear the list (without deleting Commitment objects)
     void clear() { removedList.clear(); }
 };
 

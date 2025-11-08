@@ -1,29 +1,34 @@
 #include <iostream>
 #include "util/filter.hpp"
-#include "util/linked_list.hpp"
-#include "util/removed_comm_list.hpp"
-#include "classes/ppCommitment.hpp"
 
-void Filter::filterCommitments(List* commitmentList, List* confirmedList,     
-                            RemovedCommitmentList* postponedList,
-                            RemovedCommitmentList* canceledList)
+void Filter::filterCommitments(CommitmentList* commitmentList, CommitmentList* confirmedList,     
+                            RemovedCommitmentsList* postponedList,
+                            RemovedCommitmentsList* canceledList)
 {
-    
-    if(commitmentList->getHead() == nullptr)
+    if(commitmentList->isEmpty())
         return;
     
-    List::Node* curr = commitmentList->getHead();
-     
+    confirmedList->clearWithoutData();
     
-    while (curr->getNext() == nullptr)    //reache end of List and don't need to analize last node* with nullprt 
-    {                
-        List::Node* next = curr->getNext();
+    CommitmentList::Node* curr = commitmentList->getHead();
+    
+    while (curr && commitmentList->getNext(curr)) {
+        CommitmentList::Node* next = commitmentList->getNext(curr);
+        Commitment* currentCommitment = commitmentList->getData(curr);
+        Commitment* nextCommitment = commitmentList->getData(next);
         
-        // if(Filter::hasTimeConflict(curr->base, next->base))
-        // {
-        //     curr = handleConflict(curr, next);
-        // }    
-    }   
+        if(hasConflict(currentCommitment, nextCommitment)) {
+            handleConflict(curr, next, confirmedList, postponedList, canceledList, commitmentList);
+            curr = commitmentList->getNext(curr);
+        } else {
+            confirmedList->addCommitment(currentCommitment);
+            curr = next;
+        }
+    }
+    
+    if (curr) {
+        confirmedList->addCommitment(commitmentList->getData(curr));
+    }
 }
 
 bool Filter::hasConflict(Commitment* a, Commitment* b)
@@ -35,30 +40,66 @@ bool Filter::hasConflict(Commitment* a, Commitment* b)
     if(a->getDayInt() != b->getDayInt())
         return false;
 
-    return (hasTimeConflict(a, b) || hasTimeConflict(a, b));    //if don't have time conflict from both starts, return false 
-
+    return (hasTimeConflict(a, b) || hasTimeConflict(b, a));
 }
 
 bool Filter::hasTimeConflict(Commitment* a, Commitment* b)
 {
-    if((b->getStartHour() > a->getStartHour()) || (b->getStartHour() > a->getFinishHour()))      
-        return true;
+    int aStart = a->getStartHour() * 60 + a->getStartMinute();
+    int aEnd = a->getFinishHour() * 60 + a->getFinishMinute();
+    int bStart = b->getStartHour() * 60 + b->getStartMinute();
+    int bEnd = b->getFinishHour() * 60 + b->getFinishMinute();
     
-    return false; 
-    
+    return (aStart < bEnd && bStart < aEnd);
 }
 
-List::Node* Filter::handleConflict(List::Node* current, List::Node* next, 
-                                    RemovedCommitmentList* postponedList,
-                                    RemovedCommitmentList* canceledList)
+void Filter::handleConflict(CommitmentList::Node* current, 
+                           CommitmentList::Node* next, 
+                           CommitmentList* confirmedList,
+                           RemovedCommitmentsList* postponedList,
+                           RemovedCommitmentsList* canceledList,
+                           CommitmentList* commitmentList)
 {
-    Commitment* currComm = current->base;
-    Commitment* nextComm = next->base; 
+    Commitment* currComm = commitmentList->getData(current);
+    Commitment* nextComm = commitmentList->getData(next);
     
-    if(currComm->getIsPostponable())
-        if(!nextComm->getIsPostponable())
-            //List::postponeNode(Node* curr);
+    Commitment* toRemove = nullptr;
+    Commitment* confirmed = nullptr;
+    
+    if(currComm->getIsPostponable() && !nextComm->getIsPostponable()) {
+        toRemove = currComm;
+        confirmed = nextComm;
+    }
+    else if(!currComm->getIsPostponable() && nextComm->getIsPostponable()) {
+        toRemove = nextComm;
+        confirmed = currComm;
+    }
+    else if(currComm->getPriorityScore() == nextComm->getPriorityScore()) {
+        if(currComm->getId() < nextComm->getId()) {
+            toRemove = currComm;
+            confirmed = nextComm;
+        } else {
+            toRemove = nextComm;
+            confirmed = currComm;
+        }
+    }
+    else if(currComm->getPriorityScore() > nextComm->getPriorityScore()) {
+        toRemove = nextComm;
+        confirmed = currComm;
+    }
+    else {
+        toRemove = currComm;
+        confirmed = nextComm;
+    }
+    
+    if(toRemove->getIsPostponable())
+        postponedList->addRemovedCommitment(toRemove, confirmed->getId());
+
         
-        
+    confirmedList->addCommitment(confirmed);
+    canceledList->addRemovedCommitment(toRemove, confirmed->getId());    
+    commitmentList->removeCommitment(toRemove);
+
+
 
 }

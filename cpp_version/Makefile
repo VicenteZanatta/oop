@@ -20,8 +20,8 @@ SRC = src/main.cpp \
       src/classes/personal.cpp \
       src/util/commitment_list.cpp \
       src/util/removed_comm_list.cpp \
-      src/util/file_input.cpp 
-      #src/util/filter.cpp
+      src/util/file_input.cpp \
+      src/util/filter.cpp
 
 # Objetos gerados
 OBJ = $(SRC:.cpp=.o)

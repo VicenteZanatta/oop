@@ -2,42 +2,46 @@
 #include "util/commitment_list.hpp"
 #include "util/file_input.hpp"
 #include "util/merge_sort_template.hpp"
+#include "util/filter.hpp"
+#include "util/removed_comm_list.hpp"
 
-std::string const INPUT_FILE_NAME = "exemplo01/agenda.txt";
+int main(int argc, char* argv[]){
 
-int main(){
+    std::string inputFileName = argv[1];
+    
     CommitmentList* commitmentList = new CommitmentList();
+    CommitmentList* confirmedList = new CommitmentList();
+    RemovedCommitmentsList* postponedList = new RemovedCommitmentsList();
+    RemovedCommitmentsList* canceledList = new RemovedCommitmentsList();
 
-    if (readInputFile(INPUT_FILE_NAME, commitmentList) != 0) {
-        std::cout << "Failed to read input file!" << std::endl;
+    if (readInputFile(inputFileName, commitmentList) != 0) {
+        std::cout << "Failed to read input file: " << inputFileName << std::endl;
         delete commitmentList;
+        delete confirmedList;
+        delete postponedList;
+        delete canceledList;
         return 1;
     }
 
-    // Sort by date/time
-    MergeSortTemplate<CommitmentList, Commitment>::sortByDateTime(commitmentList);
-    std::cout << "=== SORTED BY DATE/TIME ===" << std::endl;
-    commitmentList->printList();
-    std::cout << "============================" << std::endl;
+    MergeSortTemplate<CommitmentList>::sortByDateTime(commitmentList);
+
+    Filter filter;
+    filter.filterCommitments(commitmentList, confirmedList, postponedList, canceledList);
+
+    MergeSortTemplate<CommitmentList>::sortByDateTime(confirmedList);
+    MergeSortTemplate<CommitmentList>::sortById(commitmentList);
+    MergeSortTemplate<RemovedCommitmentsList>::sortByPriority(postponedList);
+    MergeSortTemplate<RemovedCommitmentsList>::sortByDuration(canceledList);
     
-    // Sort by duration ascending
-    MergeSortTemplate<CommitmentList, Commitment>::sortByDuration(commitmentList);
-    std::cout << "=== SORTED BY DURATION (ASC) ===" << std::endl;
-    commitmentList->printList();
-    std::cout << "============================" << std::endl;
-    
-    // Sort by ID ascending
-    MergeSortTemplate<CommitmentList, Commitment>::sortById(commitmentList);
-    std::cout << "=== SORTED BY ID (ASC) ===" << std::endl;
-    commitmentList->printList();
-    std::cout << "============================" << std::endl;
-    
-    // Sort by priority descending
-    MergeSortTemplate<CommitmentList, Commitment>::sortByPriority(commitmentList);
-    std::cout << "=== SORTED BY PRIORITY (DESC) ===" << std::endl;
-    commitmentList->printList();
-    std::cout << "============================" << std::endl;
+    commitmentList->printCommitmentList("relatorio_completo.txt");
+    confirmedList->printConfirmedList("relatorio_confirmados.txt");
+    postponedList->printRemovedCommitments("relatorio_adiados.txt");
+    canceledList->printRemovedCommitments("relatorio_cancelados.txt");
 
     delete commitmentList;
+    delete confirmedList;
+    delete postponedList;
+    delete canceledList;
+    
     return 0;
 }

@@ -1,7 +1,9 @@
 #ifndef MERGE_SORT_TEMPLATE_HPP
 #define MERGE_SORT_TEMPLATE_HPP
 
-template<typename ListType, typename DataType>
+#include "util/commitment_list.hpp"
+
+template<typename ListType>
 class MergeSortTemplate {
 public:
     enum SortCriteria {
@@ -64,7 +66,7 @@ private:
             return left;
         }
         
-        bool (*compareFunction)(DataType*, DataType*) = getCompareFunction(criteria);
+        bool (*compareFunction)(Commitment*, Commitment*) = getCompareFunction(criteria);
         
         Node* result = nullptr;
         
@@ -124,7 +126,7 @@ private:
         return result;
     }
 
-    static bool (*getCompareFunction(SortCriteria criteria))(DataType*, DataType*) {
+    static bool (*getCompareFunction(SortCriteria criteria))(Commitment*, Commitment*) {
         switch (criteria) {
             case DATE_TIME: return compareByDateTime;
             case PRIORITY: return compareByPriorityDesc;
@@ -134,7 +136,7 @@ private:
         }
     }
 
-    static bool compareByDateTime(DataType* a, DataType* b) {
+    static bool compareByDateTime(Commitment* a, Commitment* b) {
         if (a->getYearInt() != b->getYearInt())
             return a->getYearInt() < b->getYearInt();
         if (a->getMonthInt() != b->getMonthInt())
@@ -146,15 +148,15 @@ private:
         return a->getStartMinute() < b->getStartMinute();
     }
 
-    static bool compareByPriorityDesc(DataType* a, DataType* b) {
+    static bool compareByPriorityDesc(Commitment* a, Commitment* b) {
         return a->getPriorityScore() > b->getPriorityScore();
     }
 
-    static bool compareByDurationAsc(DataType* a, DataType* b) {
+    static bool compareByDurationAsc(Commitment* a, Commitment* b) {
         return a->getDuration() < b->getDuration();
     }
 
-    static bool compareByIdAsc(DataType* a, DataType* b) {
+    static bool compareByIdAsc(Commitment* a, Commitment* b) {
         return a->getId() < b->getId();
     }
 
@@ -190,26 +192,6 @@ public:
 
     static void sortById(ListType* list) {
         sort(list, ID);
-    }
-};
-
-// Specialization for CommitmentList to make usage easier
-class CommitmentMergeSort {
-public:
-    static void sortByDateTime(CommitmentList* list) {
-        MergeSortTemplate<CommitmentList, Commitment>::sortByDateTime(list);
-    }
-    
-    static void sortByPriority(CommitmentList* list) {
-        MergeSortTemplate<CommitmentList, Commitment>::sortByPriority(list);
-    }
-    
-    static void sortByDuration(CommitmentList* list) {
-        MergeSortTemplate<CommitmentList, Commitment>::sortByDuration(list);
-    }
-    
-    static void sortById(CommitmentList* list) {
-        MergeSortTemplate<CommitmentList, Commitment>::sortById(list);
     }
 };
 

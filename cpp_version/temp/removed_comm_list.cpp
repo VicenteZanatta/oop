@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include "util/removed_comm_list.hpp"
 
 RemovedCommitmentsList::RemovedComm::RemovedComm(Commitment* commitment, const std::string& removerId)
@@ -23,15 +22,9 @@ void RemovedCommitmentsList::addRemovedCommitment(Commitment* commitment, const 
     removedList.addNode(removedComm);
 }
 
-void RemovedCommitmentsList::printRemovedCommitments(const std::string& filename) const 
+void RemovedCommitmentsList::printRemovedCommitments() const 
 {
-    std::ofstream file(filename);
-    if (!file.is_open()) {
-        return;
-    }
-    
     if (removedList.isEmpty()) {
-        file.close();
         return;
     }
     
@@ -40,13 +33,11 @@ void RemovedCommitmentsList::printRemovedCommitments(const std::string& filename
         Commitment* commitment = current->data->removedCommitment;
         std::string removerId = current->data->moreImportantId;
         
-        file << commitment->getId() << std::endl;
-        file << commitment->getDescription() << std::endl;
-        file << commitment->getPriority() << std::endl;
-        file << removerId << std::endl;
+        std::cout << commitment->getId() << std::endl;
+        std::cout << commitment->getDescription() << std::endl;
+        std::cout << commitment->getPriority() << std::endl;
+        std::cout << removerId << std::endl;
         
         current = current->getNext();
     }
-    
-    file.close();
 }

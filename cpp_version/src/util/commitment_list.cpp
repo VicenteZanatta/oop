@@ -1,3 +1,5 @@
+#include <iostream>
+#include <fstream>
 #include "util/commitment_list.hpp"
 
 CommitmentList::CommitmentList() = default;
@@ -19,25 +21,59 @@ void CommitmentList::removeCommitment(Commitment* commitment) {
     }
 }
 
-void CommitmentList::printList() const {
-    std::cout << "=== COMMITMENTS LIST ===" << std::endl;
-    commitmentList.printList([](Commitment* commitment) {
-        commitment->printDefenition();
-    });
-    std::cout << "========================" << std::endl;
-}
-
-Commitment* CommitmentList::findCommitmentById(const std::string& id) const {
-    auto current = commitmentList.getHead();
+void CommitmentList::printCommitmentList(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        return;
+    }
+    
+    if (commitmentList.isEmpty()) {
+        file.close();
+        return;
+    }
+    
+    LinkedListTemplate<Commitment>::Node* current = commitmentList.getHead();
     while (current) {
-        if (current->data->getId() == id) {
-            return current->data;
-        }
+        Commitment* commitment = current->data;
+        
+        file << commitment->getDayInt() << "/" << commitment->getMonthInt() << "/" << commitment->getYearInt();
+        file << " " << commitment->getStartHour() << ":" << commitment->getStartMinute() << std::endl;
+        file << commitment->getId() << std::endl;
+        file << commitment->getDescription() << std::endl;
+        
         current = current->getNext();
     }
-    return nullptr;
+    
+    file.close();
 }
 
+void CommitmentList::printConfirmedList(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        return;
+    }
+    
+    if (commitmentList.isEmpty()) {
+        file.close();
+        return;
+    }
+    
+    LinkedListTemplate<Commitment>::Node* current = commitmentList.getHead();
+    while (current) {
+        Commitment* commitment = current->data;
+        
+        file << commitment->getId() << ": " << commitment->getDescription() << std::endl;
+        file << "Início: " << commitment->getDayInt() << "/" << commitment->getMonthInt() << "/" << commitment->getYearInt();
+        file << " " << commitment->getStartHour() << ":" << commitment->getStartMinute() << std::endl;
+        file << "Fim: " << commitment->getDayInt() << "/" << commitment->getMonthInt() << "/" << commitment->getYearInt();
+        file << " " << commitment->getFinishHour() << ":" << commitment->getFinishMinute() << std::endl;
+        file << "Prioridade: " << commitment->getPriority() << std::endl;
+        
+        current = current->getNext();
+    }
+    
+    file.close();
+}
 
 void CommitmentList::clear() {
     commitmentList.clearWithData();
