@@ -2,40 +2,49 @@
 #define COMMITMENT_LIST_HPP
 
 #include <string>
-#include "util/linked_list_template.hpp"
 #include "classes/commitment.hpp"
+#include <fstream>
 
-class CommitmentList {
+class CommitmentList
+{
 private:
-    LinkedListTemplate<Commitment> commitmentList;
+    struct Node
+    {
+        Commitment* data;
+        std::string moreImportanteCommitment; 
+        Node* next;
+    };
+    
+    Node* head;
+    Node* tail;
+
 
 public:
-    using Node = typename LinkedListTemplate<Commitment>::Node;
+    enum ListOf{
+        Confirmed,
+        Canceled,
+        Postponade,
+        All
+    };
 
     CommitmentList();
     ~CommitmentList();
 
-    void addCommitment(Commitment* commitment);
-    void removeCommitment(Commitment* commitment);
-    void printCommitmentList(const std::string& filename) const;
-    void printConfirmedList(const std::string& filename) const;
-    bool isEmpty() const { return commitmentList.isEmpty(); }
 
-    Node* getHead() const { return commitmentList.getHead(); }
-    Node* getTail() const { return commitmentList.getTail(); }
-    void setHead(Node* newHead) { commitmentList.setHead(newHead); }
-    void setTail(Node* newTail) { commitmentList.setTail(newTail); }
-    
-    Node* getNext(Node* current) const { 
-        return commitmentList.getNext(current);
-    }
-    
-    Commitment* getData(Node* current) const { 
-        return commitmentList.getData(current);
-    }
-    
+    void addCommitment(Commitment* com);
+    bool removeCommitment(const std::string& id);
+
+    void printCommitmentList(CommitmentList* List, ListOf commStatus = All, std::ofstream *file);
+    void printListOfCanceled(std::ofstream* file);
+    void printListOfConfirmed(std::ofstream* file);
+    void printListOfPostponaded(std::ofstream* file);
+    void printListOfAll(std::ofstream* file);
+
+    Commitment* find(const std::string& id) const;
+    bool isEmpty() const;
     void clear();
-    void clearWithoutData();
-};
+    };
 
 #endif
+
+

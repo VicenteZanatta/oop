@@ -1,0 +1,16 @@
+A000001
+Aula de Processamento de Dados I
+1
+P000013
+R000009
+Novas Grades Curriculares
+1
+P000013
+A000002
+Aula de Processamento de Dados I
+1
+E000010
+P000012
+Almoço de negócios
+1
+A000007

@@ -18,6 +18,8 @@ private:
     LinkedListTemplate<RemovedComm> removedList;
 
 public:
+    using Node = typename LinkedListTemplate<RemovedComm>::Node;
+
     RemovedCommitmentsList();
     ~RemovedCommitmentsList();
 
@@ -25,8 +27,18 @@ public:
     void printRemovedCommitments(const std::string& filename) const;
     bool isEmpty() const { return removedList.isEmpty(); }
     
-    auto getHead() const { return removedList.getHead(); }
-    auto getTail() const { return removedList.getTail(); }
+    Node* getHead() const { return removedList.getHead(); }
+    Node* getTail() const { return removedList.getTail(); }
+    void setHead(Node* newHead) { removedList.setHead(newHead); }
+    void setTail(Node* newTail) { removedList.setTail(newTail); }
+    
+    Node* getNext(Node* current) const { 
+        return removedList.getNext(current);
+    }
+    
+    RemovedComm* getData(Node* current) const { 
+        return removedList.getData(current);
+    }
     
     void clear() { removedList.clear(); }
 };

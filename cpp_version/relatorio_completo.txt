@@ -1,0 +1,27 @@
+3/4/2009 14:0
+A000003
+Aula de Processamento de Dados II
+4/4/2009 11:0
+A000004
+Aula de Linguagens de Programação I
+5/4/2009 13:0
+A000005
+Aula de Processamento de Dados II
+6/4/2009 15:0
+A000006
+Aula de Engenharia Web
+7/4/2009 10:0
+A000007
+Aula de Linguagens de Programação I
+7/4/2009 8:0
+E000010
+Workshop de Metodologias em Engenharia Web
+1/4/2009 0:0
+E000011
+Simpósio Brasileiro de Linguagens de Programação
+6/4/2009 18:0
+O000008
+Orientação de Igor, Murilo e Querino
+5/4/2009 8:0
+P000013
+Consulta ao Médico

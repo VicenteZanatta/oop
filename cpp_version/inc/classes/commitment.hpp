@@ -48,6 +48,12 @@ public:
     std::string getId() const { return id; }
 
     void setDefenition(std::string arg_definition);
+
+    void printConfirmed(std::ofstream* file);
+    void printCanceled(std::ofstream* file);
+    void printComplet(std::ofstream* file);
+    void printPostponaded(std::ofstream* file);
+
 };
 
 #endif

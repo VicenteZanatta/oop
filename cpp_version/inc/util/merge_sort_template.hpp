@@ -1,13 +1,11 @@
 #ifndef MERGE_SORT_TEMPLATE_HPP
 #define MERGE_SORT_TEMPLATE_HPP
 
-#include "util/commitment_list.hpp"
-
-template<typename ListType>
+template<typename ListType, typename DataType>
 class MergeSortTemplate {
 public:
     enum SortCriteria {
-        DATE_TIME,
+        DATE,
         PRIORITY, 
         DURATION,
         ID
@@ -27,7 +25,6 @@ private:
         Node* middle = getMiddle(list, head);
         Node* nextOfMiddle = list->getNext(middle);
         
-        // Split the list
         middle->setNext(nullptr);
         if (nextOfMiddle) {
             nextOfMiddle->setPrev(nullptr);
@@ -66,11 +63,11 @@ private:
             return left;
         }
         
-        bool (*compareFunction)(Commitment*, Commitment*) = getCompareFunction(criteria);
+        bool (*compareFunction)(DataType*, DataType*) = getCompareFunction(criteria);
         
         Node* result = nullptr;
+        Node* current = nullptr;
         
-        // Choose the head of merged list
         if (compareFunction(list->getData(left), list->getData(right))) {
             result = left;
             left = list->getNext(left);
@@ -78,11 +75,9 @@ private:
             result = right;
             right = list->getNext(right);
         }
-        
-        Node* current = result;
+        current = result;
         current->setPrev(nullptr);
-        
-        // Merge the lists
+
         while (left && right) {
             if (compareFunction(list->getData(left), list->getData(right))) {
                 current->setNext(left);
@@ -93,18 +88,16 @@ private:
                 right->setPrev(current);
                 right = list->getNext(right);
             }
-            current = current->getNext();
+            current = list->getNext(current);
         }
         
-        // Attach remaining nodes
         if (left) {
             current->setNext(left);
             left->setPrev(current);
             if (tail) {
-                // Find the actual tail
                 Node* temp = left;
-                while (temp->getNext()) {
-                    temp = temp->getNext();
+                while (list->getNext(temp)) {
+                    temp = list->getNext(temp);
                 }
                 *tail = temp;
             }
@@ -114,10 +107,9 @@ private:
                 right->setPrev(current);
             }
             if (tail) {
-                // Find the actual tail
                 Node* temp = right;
-                while (temp && temp->getNext()) {
-                    temp = temp->getNext();
+                while (temp && list->getNext(temp)) {
+                    temp = list->getNext(temp);
                 }
                 *tail = temp;
             }
@@ -126,9 +118,9 @@ private:
         return result;
     }
 
-    static bool (*getCompareFunction(SortCriteria criteria))(Commitment*, Commitment*) {
+    static bool (*getCompareFunction(SortCriteria criteria))(DataType*, DataType*) {
         switch (criteria) {
-            case DATE_TIME: return compareByDateTime;
+            case DATE: return compareByDateTime;
             case PRIORITY: return compareByPriorityDesc;
             case DURATION: return compareByDurationAsc;
             case ID: return compareByIdAsc;
@@ -136,7 +128,7 @@ private:
         }
     }
 
-    static bool compareByDateTime(Commitment* a, Commitment* b) {
+    static bool compareByDateTime(DataType* a, DataType* b) {
         if (a->getYearInt() != b->getYearInt())
             return a->getYearInt() < b->getYearInt();
         if (a->getMonthInt() != b->getMonthInt())
@@ -148,20 +140,20 @@ private:
         return a->getStartMinute() < b->getStartMinute();
     }
 
-    static bool compareByPriorityDesc(Commitment* a, Commitment* b) {
+    static bool compareByPriorityDesc(DataType* a, DataType* b) {
         return a->getPriorityScore() > b->getPriorityScore();
     }
 
-    static bool compareByDurationAsc(Commitment* a, Commitment* b) {
+    static bool compareByDurationAsc(DataType* a, DataType* b) {
         return a->getDuration() < b->getDuration();
     }
 
-    static bool compareByIdAsc(Commitment* a, Commitment* b) {
+    static bool compareByIdAsc(DataType* a, DataType* b) {
         return a->getId() < b->getId();
     }
 
 public:
-    static void sort(ListType* list, SortCriteria criteria = DATE_TIME) {
+    static void sort(ListType* list, SortCriteria criteria = DATE) {
         if (!list || list->isEmpty()) {
             return; 
         }
@@ -171,15 +163,10 @@ public:
         
         list->setHead(newHead);
         list->setTail(newTail);
-        
-        // Ensure the head's prev is null
-        if (newHead) {
-            newHead->setPrev(nullptr);
-        }
     }
 
     static void sortByDateTime(ListType* list) {
-        sort(list, DATE_TIME);
+        sort(list, DATE);
     }
 
     static void sortByPriority(ListType* list) {

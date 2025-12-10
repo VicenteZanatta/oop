@@ -10,18 +10,18 @@ private:
     bool hasConflict(Commitment* a, Commitment* b);
     bool hasTimeConflict(Commitment* a, Commitment* b);
     
-    void handleConflict(CommitmentList::Node* currentNode, 
-                       CommitmentList::Node* nextNode,
+    void handleConflict(Commitment* a, 
+                       Commitment* b,
                        CommitmentList* confirmedList,
-                       RemovedCommitmentsList* postponedList,
-                       RemovedCommitmentsList* canceledList,
+                       CommitmentList* postponedList,
+                       CommitmentList* canceledList,
                        CommitmentList* commitmentList);
 
 public:
     void filterCommitments(CommitmentList* commitmentList, 
                           CommitmentList* confirmedList,
-                          RemovedCommitmentsList* postponedList,
-                          RemovedCommitmentsList* canceledList);
+                          CommitmentList* postponedList,
+                          CommitmentList* canceledList);
 };
 
 #endif

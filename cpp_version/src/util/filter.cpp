@@ -2,33 +2,16 @@
 #include "util/filter.hpp"
 
 void Filter::filterCommitments(CommitmentList* commitmentList, CommitmentList* confirmedList,     
-                            RemovedCommitmentsList* postponedList,
-                            RemovedCommitmentsList* canceledList)
+                            CommitmentList* postponedList,
+                            CommitmentList* canceledList)
 {
     if(commitmentList->isEmpty())
         return;
+        commitmentList->clear();
     
-    confirmedList->clearWithoutData();
+    Commitment* curr = commitmentList->get
     
-    CommitmentList::Node* curr = commitmentList->getHead();
-    
-    while (curr && commitmentList->getNext(curr)) {
-        CommitmentList::Node* next = commitmentList->getNext(curr);
-        Commitment* currentCommitment = commitmentList->getData(curr);
-        Commitment* nextCommitment = commitmentList->getData(next);
-        
-        if(hasConflict(currentCommitment, nextCommitment)) {
-            handleConflict(curr, next, confirmedList, postponedList, canceledList, commitmentList);
-            curr = commitmentList->getNext(curr);
-        } else {
-            confirmedList->addCommitment(currentCommitment);
-            curr = next;
-        }
-    }
-    
-    if (curr) {
-        confirmedList->addCommitment(commitmentList->getData(curr));
-    }
+    while (
 }
 
 bool Filter::hasConflict(Commitment* a, Commitment* b)
@@ -53,53 +36,46 @@ bool Filter::hasTimeConflict(Commitment* a, Commitment* b)
     return (aStart < bEnd && bStart < aEnd);
 }
 
-void Filter::handleConflict(CommitmentList::Node* current, 
-                           CommitmentList::Node* next, 
+void Filter::handleConflict(Commitment* a, 
+                           Commitment* b, 
                            CommitmentList* confirmedList,
-                           RemovedCommitmentsList* postponedList,
-                           RemovedCommitmentsList* canceledList,
+                           CommitmentList* postponedList,
+                           CommitmentList* canceledList,
                            CommitmentList* commitmentList)
 {
-    Commitment* currComm = commitmentList->getData(current);
-    Commitment* nextComm = commitmentList->getData(next);
+    //Commitment* a = commitmentList->getData(current);
+    //Commitment* b = commitmentList->getData(next);
     
     Commitment* toRemove = nullptr;
     Commitment* confirmed = nullptr;
     
-    if(currComm->getIsPostponable() && !nextComm->getIsPostponable()) {
-        toRemove = currComm;
-        confirmed = nextComm;
+    if(a->getIsPostponable() && !b->getIsPostponable()) {
+        postponedList->addCommitment(a);
+        confirmedList->addCommitment(b);
     }
-    else if(!currComm->getIsPostponable() && nextComm->getIsPostponable()) {
-        toRemove = nextComm;
-        confirmed = currComm;
+    else if(!a->getIsPostponable() && b->getIsPostponable()) {
+        postponedList->addCommitment(b);
+        confirmedList->addCommitment(a);
     }
-    else if(currComm->getPriorityScore() == nextComm->getPriorityScore()) {
-        if(currComm->getId() < nextComm->getId()) {
-            toRemove = currComm;
-            confirmed = nextComm;
+    else if(a->getPriorityScore() == b->getPriorityScore()) {
+        if(a->getId() < b->getId()) {
+            toRemove = a;
+            confirmed = b;
         } else {
-            toRemove = nextComm;
-            confirmed = currComm;
+            toRemove = b;
+            confirmed = a;
         }
     }
-    else if(currComm->getPriorityScore() > nextComm->getPriorityScore()) {
-        toRemove = nextComm;
-        confirmed = currComm;
+    else if(a->getPriorityScore() > b->getPriorityScore()) {
+        toRemove = b;
+        confirmed = a;
     }
     else {
-        toRemove = currComm;
-        confirmed = nextComm;
+        toRemove = a;
+        confirmed = b;
     }
     
     if(toRemove->getIsPostponable())
-        postponedList->addRemovedCommitment(toRemove, confirmed->getId());
-
-        
-    confirmedList->addCommitment(confirmed);
-    canceledList->addRemovedCommitment(toRemove, confirmed->getId());    
-    commitmentList->removeCommitment(toRemove);
-
 
 
 }

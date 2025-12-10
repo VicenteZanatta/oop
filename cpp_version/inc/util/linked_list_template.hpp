@@ -88,13 +88,12 @@ public:
         }
     }
     
-    // Access methods
+
     Node* getHead() const { return head; }
     Node* getTail() const { return tail; }
     void setHead(Node* newHead) { head = newHead; }
     void setTail(Node* newTail) { tail = newTail; }
-    
-    // Navigation methods
+
     Node* getNext(Node* current) const { 
         return current ? current->getNext() : nullptr;
     }

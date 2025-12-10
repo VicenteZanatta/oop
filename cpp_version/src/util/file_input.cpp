@@ -46,19 +46,19 @@ void processCommitment(std::ifstream& File, std::string& textLine, CommitmentLis
 
     switch(commitmentType){ 
         case 'A':
-            commitmentList->addCommitment(readLesson(File, textLine)); // CORREÇÃO: addCommitment
+            commitmentList->addCommitment(readLesson(File, textLine)); 
             break;
         case 'O':
-            commitmentList->addCommitment(readOrientation(File, textLine)); // CORREÇÃO: addCommitment
+            commitmentList->addCommitment(readOrientation(File, textLine)); 
             break;
         case 'E':
-            commitmentList->addCommitment(readEvent(File, textLine)); // CORREÇÃO: addCommitment
+            commitmentList->addCommitment(readEvent(File, textLine)); 
             break;
         case 'R':
-            commitmentList->addCommitment(readDepartmentMeeting(File, textLine)); // CORREÇÃO: addCommitment
+            commitmentList->addCommitment(readDepartmentMeeting(File, textLine)); 
             break;
         case 'P':
-            commitmentList->addCommitment(readPersonal(File, textLine)); // CORREÇÃO: addCommitment
+            commitmentList->addCommitment(readPersonal(File, textLine)); 
             break;
         default:    
             std::cout << "TYPE [" << commitmentType << "] NOT KNOWN" << std::endl;
